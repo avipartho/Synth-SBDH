@@ -13,7 +13,7 @@ Behavioral Determinants of Health for Clinical Text](https://arxiv.org/abs/2406.
       - [DSS](#dss) -->
 
 ## Synth-SBDH Dataset
-Synth-SBDH dataset, seed examples, prompt and data generation script will be released upon acceptance.
+Synth-SBDH dataset, seed examples, prompt and data generation scripts will be released upon acceptance.
 
 ## Experiments
 There are three directories for the three different experiments conducted in the paper - [mlc](mlc), [ner](ner) and [dss](dss). Each folder is self-contained with all the necessary scripts.
@@ -32,7 +32,7 @@ All models used in the three experiments are publicly available. Here is a list 
 1. [RoBERTa-base](https://huggingface.co/roberta-base)
 2. [ClinicalRoBERTa-base](https://dl.fbaipublicfiles.com/biolm/RoBERTa-base-PM-M3-Voc-distill-align-hf.tar.gz)
 3. [Mamba-130m](https://huggingface.co/state-spaces/mamba-130m)
-4. [ClinicalMamba-130m]()
+4. ClinicalMamba-130m (Will be released soon, keep an eye [here](https://github.com/whaleloops/ClinicalMamba) to know more.)
 5. [T5-base](https://huggingface.co/google/t5-v1_1-base)
 6. [FLAN-T5-base](https://huggingface.co/google/flan-t5-base)
 
@@ -82,3 +82,7 @@ Fine-tuning on Synth-SBDH (SFT<sub>stage1</sub>)
       primaryClass={id='cs.CL' full_name='Computation and Language' is_active=True alt_name='cmp-lg' in_archive='cs' is_general=False description='Covers natural language processing. Roughly includes material in ACM Subject Class I.2.7. Note that work on artificial languages (programming languages, logics, formal systems) that does not explicitly address natural-language issues broadly construed (natural-language processing, computational linguistics, speech, text retrieval, etc.) is not appropriate for this area.'}
 }
 ```
+## Acknowledgments
+Some of the scripts were taken and repurposed from the following repositories -
+- https://github.com/whaleloops/ClinicalMamba
+- https://github.com/google-research/distilling-step-by-step

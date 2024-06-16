@@ -6,49 +6,18 @@
 # MODEL_NAME="t5-base"
 # ALIAS="t5_base"
 
-# MODEL_NAME="t5-large"
-# ALIAS="t5_large"
-
 # MODEL_NAME="google/flan-t5-base"
 # ALIAS="flan_t5_base"
-
-# MODEL_NAME="google/flan-t5-base-ptr"
-# ALIAS="flan_t5_base_ptr"
 
 MODEL_NAME="google/t5-v1_1-base"
 ALIAS="t5v1_1_base"
 
-# MODEL_NAME="google/t5-v1_1-base-ptr"
-# ALIAS="t5v1_1_base_ptr"
-
-# MODEL_NAME="facebook/bart-base"
-# ALIAS="bart_base"
-
-# MODEL_NAME="facebook/bart-large"
-# ALIAS="bart_large"
-
 # +-------------------------------------------------+
 #  Select dataset 
 # +-------------------------------------------------+
-# DATASET="svamp"
-# MAX_LEN=512
-# BATCH_SIZE=16
-
-# DATASET="sbdh_gpt4_v2"
-# MAX_LEN=256
-# BATCH_SIZE=32
-
 DATASET="sbdh_gpt4_v3"
 MAX_LEN=256
 BATCH_SIZE=32
-
-# DATASET="sbdh_gpt4_msf"
-# MAX_LEN=256
-# BATCH_SIZE=32
-
-# DATASET="sbdh_gpt4_msf_v3"
-# MAX_LEN=256
-# BATCH_SIZE=32
 
 cd ../
 

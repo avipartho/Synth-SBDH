@@ -3,29 +3,17 @@
 # +-------------------------------------------------+
 #  Select dataset 
 # +-------------------------------------------------+
-DATASET="mimic_sbdh"
-DATA_PATH="/home/avijit/playground/sdoh/mimic-sbdh/mimic_sbdh"
-MAX_LEN=256
+# DATASET="mimic_sbdh"
+# DATA_PATH="/home/avijit/playground/sdoh/mimic-sbdh/mimic_sbdh"
+# MAX_LEN=256
+# BATCH_SIZE=32
+# NUM_EPOCH=8
+
+DATASET="sbdh_gpt4_msf_v3"
+DATA_PATH="/home/avijit/playground/sdoh/synth_data_gpt4/sbdh_gpt4_msf_v3_multilabel"
+MAX_LEN=128
 BATCH_SIZE=32
-NUM_EPOCH=8
-
-# DATASET="sbdh_gpt4_v2"
-# DATA_PATH="/home/avijit/playground/sdoh/synth_data_gpt4/sbdh_gpt4_v2_multilabel"
-# MAX_LEN=128
-# BATCH_SIZE=32
-# NUM_EPOCH=40
-
-# DATASET="sbdh_gpt4_msf"
-# DATA_PATH="/home/avijit/playground/sdoh/synth_data_gpt4/sbdh_gpt4_msf_multilabel"
-# MAX_LEN=128
-# BATCH_SIZE=32
-# NUM_EPOCH=40
-
-# DATASET="sbdh_gpt4_msf_v3"
-# DATA_PATH="/home/avijit/playground/sdoh/synth_data_gpt4/sbdh_gpt4_msf_v3_multilabel"
-# MAX_LEN=128
-# BATCH_SIZE=32
-# NUM_EPOCH=40
+NUM_EPOCH=40
 
 cd ../
 

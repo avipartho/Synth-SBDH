@@ -24,10 +24,6 @@ NUM_EPOCH=8
 # +-------------------------------------------------+
 #  Select pretrained model
 # +-------------------------------------------------+
-# MODEL_PATH="./saved_models/cliroberta_sbdh_gpt4_msf_0/checkpoint-631"
-
-# MODEL_PATH="./saved_models/cliroberta_sbdh_gpt4_v2_0/checkpoint-912"
-
 MODEL_PATH="./saved_models/cliroberta_sbdh_gpt4_msf_v3_0/checkpoint-677"
 
 cd ../

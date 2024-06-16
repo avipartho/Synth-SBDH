@@ -43,6 +43,8 @@ Preprocessing notebooks for Synth-SBDH and MIMIC-SBDH are available in [data](da
 ### Running Experiments
 --------
 For all tasks, we do a two-stage supervised fine-tuning (SFT). In the first stage, we fine-tune models on the modified Synth-SBDH dataset (SFT<sub>stage1</sub>), and in the second stage, we use trained models from SFT<sub>stage1</sub> to further fine-tune on the task-specific real-world datasets (SFT<sub>stage2</sub>). Note that for DSS, there is no other real-world SBDH dataset with rationales, so there is no SFT<sub>stage2</sub>. 
+
+Before running any of the following scripts, please update data and all other neecessay directories.
 #### MLC
 1. Fine-tuning on Synth-SBDH (SFT<sub>stage1</sub>)
   ```sh

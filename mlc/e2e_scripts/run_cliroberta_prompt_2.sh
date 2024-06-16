@@ -14,19 +14,9 @@ NUM_EPOCH=8
 # BATCH_SIZE=32
 # NUM_EPOCH=40
 
-# DATASET="sbdh_gpt4_msf"
-# DATA_PATH="/home/avijit/playground/sdoh/synth_data_gpt4/sbdh_gpt4_msf_multilabel"
-# MAX_LEN=256
-# BATCH_SIZE=32
-# NUM_EPOCH=40
-
 # +-------------------------------------------------+
 #  Select pretrained model
 # +-------------------------------------------------+
-# MODEL_PATH="./saved_models/cliroberta_prompt_sbdh_gpt4_msf_0/checkpoint-444"
-
-# MODEL_PATH="./saved_models/cliroberta_prompt_sbdh_gpt4_v2_0/checkpoint-408"
-
 MODEL_PATH="./saved_models/cliroberta_prompt_sbdh_gpt4_msf_v3_0/checkpoint-794"
 
 cd ../

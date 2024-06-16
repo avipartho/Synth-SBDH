@@ -14,18 +14,6 @@ MAX_LEN=256
 BATCH_SIZE=32
 NUM_EPOCH=40
 
-# DATASET="sbdh_gpt4_msf"
-# DATA_PATH="/home/avijit/playground/sdoh/synth_data_gpt4/sbdh_gpt4_msf_multilabel"
-# MAX_LEN=256
-# BATCH_SIZE=32
-# NUM_EPOCH=40
-
-# DATASET="sbdh_gpt4_msf_v3"
-# DATA_PATH="/home/avijit/playground/sdoh/synth_data_gpt4/sbdh_gpt4_msf_v3_multilabel"
-# MAX_LEN=256
-# BATCH_SIZE=32
-# NUM_EPOCH=40
-
 cd ../
 
 export CUDA_DEVICE_ORDER="PCI_BUS_ID" 

@@ -25,7 +25,7 @@ There are three directories for the three different experiments conducted in the
 * Run `conda env create -f environment.yml` to create an environment
   with all necessary dependencies.
 * Run `conda activate pyenv` to activate the conda environment.
-* Create necessary directories (`logs`, `output`, `saved_models` etc.) inside the parent experiment directory. Run `mkdir <dir_name>`.
+* Create necessary directories (`logs`, `output`, `saved_models` etc.) inside the experiment directory. Run `mkdir <dir_name>`.
 ### Models
 All models used in the three experiments are publicly available. Here is a list of those models - 
 

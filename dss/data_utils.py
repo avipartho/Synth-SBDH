@@ -66,7 +66,7 @@ class DatasetLoader(object):
         if self.has_valid:
             data_files.update({'valid': f'{self.data_root}/{self.dataset_name}/{self.dataset_name}_valid.json',})
 
-        if self.dataset_name not in ['sbdh_gpt4_v2', 'sbdh_gpt4_v3', 'sbdh_gpt4_msf', 'sbdh_gpt4_msf_v3']:
+        if self.dataset_name not in ['sbdh_gpt4_v2', 'sbdh_gpt4_v3', 'sbdh_gpt4_msf', 'sbdh_gpt4_msf_v3', 'sbdh_gpt4_hr']:
             datasets = load_dataset('json', data_files=data_files)
         else:
             datasets = load_dataset('json', data_files=data_files, field="data")

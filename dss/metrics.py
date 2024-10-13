@@ -42,7 +42,8 @@ def eval_equation(equation):
 def compute_metrics_ner(tokenizer, label_list, result_file):
     def compute_metrics(eval_pred):
         predictions, labels = eval_pred
-        decoded_preds = tokenizer.batch_decode(predictions[0], skip_special_tokens=True)
+        decoded_preds = np.where(predictions[0] != -100, predictions[0], tokenizer.pad_token_id)
+        decoded_preds = tokenizer.batch_decode(decoded_preds, skip_special_tokens=True)
         
         decoded_inputs = np.where(predictions[-1] != -100, predictions[-1], tokenizer.pad_token_id)
         decoded_inputs = tokenizer.batch_decode(decoded_inputs, skip_special_tokens=True)

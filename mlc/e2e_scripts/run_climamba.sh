@@ -3,27 +3,57 @@
 #  Select dataset 
 # +-------------------------------------------------+
 # DATASET="mimic_sbdh"
-# DATA_PATH="/home/avijit/playground/sdoh/mimic-sbdh/mimic_sbdh"
+# DATA_PATH="./mimic-sbdh/mimic_sbdh"
 # MAX_LEN=256
 # BATCH_SIZE=32
 # NUM_EPOCH=8
 
-DATASET="sbdh_gpt4_v2"
-DATA_PATH="/home/avijit/playground/sdoh/synth_data_gpt4/sbdh_gpt4_v2_multilabel"
+# DATASET="mimic_sbdh_50"
+# DATA_PATH="./mimic-sbdh/mimic_sbdh"
+# MAX_LEN=256
+# BATCH_SIZE=32
+# NUM_EPOCH=50
+
+# DATASET="sbdh_gpt4_v2"
+# DATA_PATH="./synth_data_gpt4/sbdh_gpt4_v2_multilabel"
+# MAX_LEN=256
+# BATCH_SIZE=32
+# NUM_EPOCH=40
+
+# DATASET="sbdh_gpt4_msf"
+# DATA_PATH="./synth_data_gpt4/sbdh_gpt4_msf_multilabel"
+# MAX_LEN=256
+# BATCH_SIZE=32
+# NUM_EPOCH=40
+
+# DATASET="sbdh_gpt4_msf_v3"
+# DATA_PATH="./synth_data_gpt4/sbdh_gpt4_msf_v3_multilabel"
+# MAX_LEN=256
+# BATCH_SIZE=32
+# NUM_EPOCH=40
+
+DATASET="sbdh_gpt4_hr"
+DATA_PATH="./synth_data_gpt4/sbdh_gpt4_v3_multilabel_hr"
 MAX_LEN=256
 BATCH_SIZE=32
 NUM_EPOCH=40
 
+# DATASET="sbdh_gpt4_hr+" # this merges train and test set, uses val set as both val and test sets
+# DATA_PATH="./synth_data_gpt4/sbdh_gpt4_v3_multilabel_hr+"
+# MAX_LEN=256
+# BATCH_SIZE=32
+# NUM_EPOCH=40
+
 cd ../
 
 export CUDA_DEVICE_ORDER="PCI_BUS_ID" 
-declare -a SEEDS=(0 1 2)
+declare -a SEEDS=(0)
 
 for SEED in "${SEEDS[@]}"
     do
     echo "######### Seed:" ${SEED} "Dataset:" ${DATASET} "#########"
     # WANDB_MODE=disabled  
-    CUDA_VISIBLE_DEVICES=2 python main_mamba.py \
+    CUDA_VISIBLE_DEVICES=7 python main_mamba.py \
                 --seed ${SEED} --data_seed ${SEED} --ddp_find_unused_parameters False\
                 --data_path ${DATA_PATH} \
                 --config_name /data/data_user_alpha/public_models/state-spaces-mamba/clinicalmamba-130m \
@@ -38,7 +68,7 @@ for SEED in "${SEEDS[@]}"
                 --overwrite_output_dir True \
                 --load_best_model_at_end --metric_for_best_model eval_f1_macro --greater_is_better True --save_total_limit 2 \
                 --run_name climamba_ml_${DATASET}_${SEED}\
-                --output_dir ./saved_models/climamba_${DATASET}_${SEED}  2>&1 | tee /home/avijit/playground/sdoh/stdout/stdout_climamba_${DATASET}_${SEED}.txt
+                --output_dir ./saved_models/climamba_${DATASET}_${SEED}  2>&1 | tee ./stdout/stdout_climamba_${DATASET}_${SEED}.txt
     done
 
 # for SEED in "${SEEDS[@]}"
@@ -59,5 +89,5 @@ for SEED in "${SEEDS[@]}"
 #                 --overwrite_output_dir True \
 #                 --load_best_model_at_end --metric_for_best_model eval_f1_macro --greater_is_better True --save_total_limit 2 \
 #                 --run_name climamba_ml_${DATASET}_${SEED}\
-#                 --output_dir ./saved_models/climamba_${DATASET}_${SEED}  2>&1 | tee /home/avijit/playground/sdoh/stdout/stdout_climamba_${DATASET}_${SEED}_inf.txt
+#                 --output_dir ./saved_models/climamba_${DATASET}_${SEED}  2>&1 | tee ./stdout/stdout_climamba_${DATASET}_${SEED}_inf.txt
 #     done

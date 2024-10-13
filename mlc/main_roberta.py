@@ -307,6 +307,11 @@ def main():
     if os.path.isdir(training_args.output_dir) and not training_args.do_train and training_args.do_predict:
         with open(f'{training_args.output_dir}/trainer_state.json') as f:
             best_model_checkpoint = json.load(f)['best_model_checkpoint']
+    
+    if os.path.isdir(model_args.model_name_or_path) and os.path.isfile(f'{model_args.model_name_or_path}/trainer_state.json'):
+        with open(f'{model_args.model_name_or_path}/trainer_state.json') as f:
+            model_args.model_name_or_path = json.load(f)['best_model_checkpoint']
+        print('Loadind model {:}'.format(model_args.model_name_or_path))
             
     # Set seed before initializing model.
     set_seed(training_args.seed)

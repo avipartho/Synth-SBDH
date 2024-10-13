@@ -342,8 +342,10 @@ def main():
             quantization_config=nf4_config
         )
         if training_args.lora_module_path is not None: # train starting from pretrained lora module ckpt
-            print('Loading and merging LoRA adapter weights to base weights from {:}'.format(training_args.lora_module_path))
-            model = PeftModel.from_pretrained(model,training_args.lora_module_path,is_trainable=True)
+            with open(f'{training_args.lora_module_path}/trainer_state.json') as f:
+                lora_module_ckpt = json.load(f)['best_model_checkpoint']    
+            print('Loading and merging LoRA adapter weights to base weights from {:}'.format(lora_module_ckpt))
+            model = PeftModel.from_pretrained(model,lora_module_ckpt,is_trainable=True)
             model.merge_and_unload()
         
         peft_config = LoraConfig(

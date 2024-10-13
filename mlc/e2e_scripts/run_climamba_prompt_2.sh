@@ -3,13 +3,19 @@
 #  Select dataset 
 # +-------------------------------------------------+
 DATASET="mimic_sbdh"
-DATA_PATH="/home/avijit/playground/sdoh/mimic-sbdh/mimic_sbdh"
+DATA_PATH="./mimic-sbdh/mimic_sbdh"
 MAX_LEN=256
 BATCH_SIZE=32
 NUM_EPOCH=8
 
 # DATASET="sbdh_gpt4_v2"
-# DATA_PATH="/home/avijit/playground/sdoh/synth_data_gpt4/sbdh_gpt4_v2_multilabel"
+# DATA_PATH="./synth_data_gpt4/sbdh_gpt4_v2_multilabel"
+# MAX_LEN=256
+# BATCH_SIZE=32
+# NUM_EPOCH=40
+
+# DATASET="sbdh_gpt4_msf"
+# DATA_PATH="./synth_data_gpt4/sbdh_gpt4_msf_multilabel"
 # MAX_LEN=256
 # BATCH_SIZE=32
 # NUM_EPOCH=40
@@ -17,7 +23,15 @@ NUM_EPOCH=8
 # +-------------------------------------------------+
 #  Select pretrained model
 # +-------------------------------------------------+
-MODEL_PATH="./saved_models/climamba_prompt_sbdh_gpt4_msf_v3_0/checkpoint-748"
+# MODEL_PATH="./saved_models/climamba_prompt_0/checkpoint-116"
+
+# MODEL_PATH="./saved_models/climamba_prompt_sbdh_gpt4_v2_0/checkpoint-192"
+
+# MODEL_PATH="./saved_models/climamba_prompt_sbdh_gpt4_msf_v3_0/checkpoint-748"
+
+PRETRAINED_ON="sbdh_gpt4_hr"
+# PRETRAINED_ON="sbdh_gpt4_hr+"
+MODEL_PATH="./saved_models/climamba_prompt_${PRETRAINED_ON}_0/"
 
 cd ../
 
@@ -28,7 +42,7 @@ for SEED in "${SEEDS[@]}"
     do
     echo "######### Seed:" ${SEED} "Dataset:" ${DATASET} "#########"
     # WANDB_MODE=disabled  
-    CUDA_VISIBLE_DEVICES=0 python main_mamba_prompt.py \
+    CUDA_VISIBLE_DEVICES=7 python main_mamba_prompt.py \
                 --seed ${SEED} --data_seed ${SEED} --ddp_find_unused_parameters False\
                 --data_path ${DATA_PATH} \
                 --config_name /data/data_user_alpha/public_models/state-spaces-mamba/clinicalmamba-130m \
@@ -42,8 +56,8 @@ for SEED in "${SEEDS[@]}"
                 --evaluation_strategy epoch --save_strategy epoch --logging_strategy epoch  \
                 --overwrite_output_dir True \
                 --load_best_model_at_end --metric_for_best_model eval_f1_macro --greater_is_better True --save_total_limit 2 \
-                --run_name climamba_prompt_frm_sbdh_gpt4_msf_v3_ml_${DATASET}_${SEED}\
-                --output_dir ./saved_models/climamba_prompt_frm_sbdh_gpt4_msf_v3_${DATASET}_${SEED}  2>&1 | tee /home/avijit/playground/sdoh/stdout/stdout_climamba_prompt_frm_sbdh_gpt4_msf_v3_${DATASET}_${SEED}.txt
+                --run_name climamba_prompt_frm_${PRETRAINED_ON}_ml_${DATASET}_${SEED}\
+                --output_dir ./saved_models/climamba_prompt_frm_${PRETRAINED_ON}_${DATASET}_${SEED}  2>&1 | tee ./stdout/stdout_climamba_prompt_frm_${PRETRAINED_ON}_${DATASET}_${SEED}.txt
     done
 
 # for SEED in "${SEEDS[@]}"
@@ -64,5 +78,5 @@ for SEED in "${SEEDS[@]}"
 #                 --overwrite_output_dir True \
 #                 --load_best_model_at_end --metric_for_best_model eval_f1_macro --greater_is_better True --save_total_limit 2 \
 #                 --run_name climamba_prompt_ml_${DATASET}_${SEED}\
-#                 --output_dir ./saved_models/climamba_prompt_${DATASET}_${SEED}  2>&1 | tee /home/avijit/playground/sdoh/stdout/stdout_climamba_prompt_${DATASET}_${SEED}_inf.txt
+#                 --output_dir ./saved_models/climamba_prompt_${DATASET}_${SEED}  2>&1 | tee ./stdout/stdout_climamba_prompt_${DATASET}_${SEED}_inf.txt
 #     done

@@ -18,15 +18,17 @@ import nltk
 import numpy as np
 import pandas as pd
 import torch
-from datasets import ClassLabel,load_dataset, load_metric
+# import evaluate
+from datasets import ClassLabel,load_dataset
 from torch.utils.data.dataloader import DataLoader
 from tqdm.auto import tqdm
+from peft import LoraConfig, get_peft_model, PeftModel, prepare_model_for_kbit_training
 
 import transformers
 from accelerate import Accelerator
 from filelock import FileLock
 from utils import write_file
-from evaluate import evaluate
+from evaluate import evaluate_e2dmodel
 from transformers import (
     CONFIG_MAPPING,
     MODEL_MAPPING,
@@ -39,6 +41,7 @@ from transformers import (
     DataCollatorForSeq2Seq,
     get_scheduler,
     set_seed,
+    BitsAndBytesConfig
 )
 from transformers.file_utils import is_offline_mode
 
@@ -351,13 +354,22 @@ def main():
         set_seed(args.seed)
         logger.info(f'Using seed {args.seed}')
     
-    if os.path.isfile(args.pred_file) and accelerator.is_local_main_process:
-        logger.info("Found an existing prediction file. Will overwrite.")
-        os.remove(args.pred_file)
-    
-    if os.path.isfile(args.result_file) and accelerator.is_local_main_process:
-        logger.info("Found an existing result file. Will overwrite.")
-        os.remove(args.result_file)
+    if args.use_accelerate:
+        if os.path.isfile(args.pred_file) and accelerator.is_local_main_process:
+            logger.info("Found an existing prediction file. Will overwrite.")
+            os.remove(args.pred_file)
+        
+        if os.path.isfile(args.result_file) and accelerator.is_local_main_process:
+            logger.info("Found an existing result file. Will overwrite.")
+            os.remove(args.result_file)
+    else:
+        if os.path.isfile(args.pred_file):
+            logger.info("Found an existing prediction file. Will overwrite.")
+            os.remove(args.pred_file)
+        
+        if os.path.isfile(args.result_file):
+            logger.info("Found an existing result file. Will overwrite.")
+            os.remove(args.result_file)
 
     # Load the dataset.
     if args.dataset_name is not None:
@@ -442,27 +454,61 @@ def main():
     
     ner_labels = list(i[2:] for i in label_to_special_token.values())
     tokenizer.add_tokens(ner_labels)
-    if tokenizer.pad_token is None: # for gpt2
+    if tokenizer.pad_token is None: # for gpt2, llama
         tokenizer.pad_token = tokenizer.eos_token
+        tokenizer.pad_token_id = tokenizer.eos_token_id
 
-    if args.model_name_or_path!='gpt-2':
+    if 't5' in args.model_name_or_path or 'bart' in args.model_name_or_path:
         model = AutoModelForSeq2SeqLM.from_pretrained(
             args.model_name_or_path,
-            from_tf=bool(".ckpt" in args.model_name_or_path),
             config=config,
         )
-    elif args.model_name_or_path=='gpt-2':
-        model = AutoModelForCausalLM(
+    elif 'gpt' in args.model_name_or_path:
+        model = AutoModelForCausalLM.from_pretrained(
             args.model_name_or_path,
-            from_tf=bool(".ckpt" in args.model_name_or_path),
             config=config,
+        )
+    elif 'llama' in args.model_name_or_path:
+        nf4_config = BitsAndBytesConfig(
+            load_in_4bit=True,
+            bnb_4bit_quant_type="nf4",
+            bnb_4bit_use_double_quant=True,
+            bnb_4bit_compute_dtype=torch.bfloat16
+        )
+        model = AutoModelForCausalLM.from_pretrained(
+            args.model_name_or_path,
+            config=config,
+            quantization_config=nf4_config
+        )
+        peft_config = LoraConfig(
+            lora_alpha=128,
+            lora_dropout=0.1,
+            r=64,
+            bias="none",
+                target_modules=[
+                "q_proj",
+                "k_proj",
+                "v_proj",
+                "o_proj",
+                "gate_proj",
+                "up_proj",
+                "down_proj",
+                "lm_head",
+            ],
+            task_type="CAUSAL_LM"
         )
     else:
         logger.info("Training new model from scratch")
         model = AutoModelForSeq2SeqLM.from_config(config)
 
+    for param in model.parameters(): param.data = param.data.contiguous()
+    
     model.resize_token_embeddings(len(tokenizer))
-    if model.config.decoder_start_token_id is None:
+    if 'llama' in args.model_name_or_path:
+        model = prepare_model_for_kbit_training(model)
+        model = get_peft_model(model, peft_config)
+        model.print_trainable_parameters()
+    elif model.config.decoder_start_token_id is None:
         raise ValueError("Make sure that `config.decoder_start_token_id` is correctly defined")
 
     # prefix = args.source_prefix if args.source_prefix is not None else ""
@@ -526,7 +572,7 @@ def main():
 
             gen_label = ', '.join(gen_label).replace('B-','')
             gen_label = 'none' if gen_label=='' else gen_label
-            if args.model_name_or_path=='gpt2':
+            if 'gpt2' in args.model_name_or_path or 'llama' in args.model_name_or_path:
                 gen_label = examples[text_column_name][i]+' '+gen_label
             gen_labels.append(gen_label)
 
@@ -584,8 +630,10 @@ def main():
     test_dataloader = DataLoader(test_dataset, collate_fn=data_collator, batch_size=eval_batch_size)
 
     # Metric
-    metric_bleu = load_metric("bleu")
-    metric_rouge = load_metric("rouge")
+    # metric_bleu = evaluate.load("bleu")
+    # metric_rouge = evaluate.load("rouge")
+    metric_bleu = None
+    metric_rouge = None
     metrics = (metric_rouge, metric_bleu)
 
     if args.do_train:
@@ -701,7 +749,7 @@ def main():
             if not args.use_accelerate or accelerator.is_local_main_process:
                 write_file(f'##### Epoch {epoch} #####\n',args.result_file)
                 write_file(f'***** Dev set results *****\n',args.result_file)
-            macro_f, dev_result_string = evaluate(model, config, tokenizer, eval_dataloader, accelerator, device, logger, n_gpu, args, metrics, label_names, write_predictions=False)
+            macro_f, dev_result_string = evaluate_e2dmodel(model, config, tokenizer, eval_dataloader, accelerator, device, logger, n_gpu, args, metrics, label_names, write_predictions=False)
         
             # Save predictions when the model improves ner performance on dev set.
             if args.output_dir is not None and macro_f>=best_macro_f:
@@ -709,7 +757,7 @@ def main():
                 logger.info("***** Running evaluation on test data *****")
                 if not args.use_accelerate or accelerator.is_local_main_process:
                     write_file('***** Test set results *****\n',args.result_file)
-                test_macro_f, test_result_string = evaluate(model, config, tokenizer, test_dataloader, accelerator, device, logger, n_gpu, args, metrics, label_names, write_predictions=True)
+                test_macro_f, test_result_string = evaluate_e2dmodel(model, config, tokenizer, test_dataloader, accelerator, device, logger, n_gpu, args, metrics, label_names, write_predictions=True)
                 result_string = dev_result_string+'\n\n'+test_result_string
                 write_file(result_string,args.best_result_file,mode='w')
                 
@@ -747,7 +795,7 @@ def main():
         logger.info("***** Running evaluation on test data *****")
         if not args.use_accelerate or accelerator.is_local_main_process:
             write_file('***** Test set results *****\n',args.result_file)
-        evaluate(model, config, tokenizer, test_dataloader, accelerator, device, logger, n_gpu, args, metrics, label_names, write_predictions=True)
+        evaluate_e2dmodel(model, config, tokenizer, test_dataloader, accelerator, device, logger, n_gpu, args, metrics, label_names, write_predictions=True)
 
 
 if __name__ == "__main__":

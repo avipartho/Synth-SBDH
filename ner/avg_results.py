@@ -34,12 +34,14 @@ def main():
         '_noPtr', '_ptr', '_ptr_v1', '_ptr_v2', '_ptr_v3', '_ptr_v4', '_ptr_v5', 
         '_textInfill_v1', '_textInfill_v2', '_textInfill_v3', '_textInfill_v3_1e4', '_textInfill_v3_1e5', '_textInfill_v3_2', 
         '_textInfill_v4', '_textInfill_v5', '_textInfill_v6', '_textInfill_v7', '_textInfill_v10', '_textInfill_v11', 
-        '_textInfill_v12', '_textInfill_v13', '_textInfill_v14', '_textInfill_v15', '_textInfill_v16', '_textInfill_v17',        
+        '_textInfill_v12', '_textInfill_v13', '_textInfill_v14', '_textInfill_v15', '_textInfill_v16', '_textInfill_v17',
+        ''        
         ]
     model_list = [
         't5v1_1_base', 't5_base', 'flan_t5_base', 'flan_t5_base_pretrained', 
         'clinical_t5_base', 'clinical_t5_sci',
-        'gpt2', 'roberta_base', 'cliroberta_base'
+        'gpt2', 'roberta_base', 'cliroberta_base',
+        'llama3_2_3b', 'llama3_8b'
         ]
     exp_model_lists = list(itertools.product(model_list, exp_suffix_list)) 
     # + \

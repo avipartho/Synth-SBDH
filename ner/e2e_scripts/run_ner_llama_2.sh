@@ -5,8 +5,8 @@
 #  Select model
 # +-------------------------------------------------+
 
-MODEL_NAME="meta-llama/Meta-Llama-3-8B"
-ALIAS="llama3_8b"
+MODEL_NAME="meta-llama/Llama-3.2-3B"
+ALIAS="llama3_2_3b"
 
 # +-------------------------------------------------+
 #  Dataset specific parameters
@@ -14,25 +14,25 @@ ALIAS="llama3_8b"
 
 # DATASET="sbdh_gpt4"
 # DATA_ALIAS="sbdh_gpt4"
-# TRAIN_DATA='./synth_data_gpt4/synth_data_aio_BIO_train.json'
-# DEV_DATA='./synth_data_gpt4/synth_data_aio_BIO_val.json'
-# TEST_DATA='./synth_data_gpt4/synth_data_aio_BIO_test.json'
+# TRAIN_DATA='/home/avijit/playground/sdoh/synth_data_gpt4/synth_data_aio_BIO_train.json'
+# DEV_DATA='/home/avijit/playground/sdoh/synth_data_gpt4/synth_data_aio_BIO_val.json'
+# TEST_DATA='/home/avijit/playground/sdoh/synth_data_gpt4/synth_data_aio_BIO_test.json'
 # MAX_LEN=256
 # PER_DEVICE_TRAIN_BATCH_SIZE=32
 
 DATASET="sbdh_gpt4_v2"
 DATA_ALIAS="sbdh_gpt4_v2"
-TRAIN_DATA='./synth_data_gpt4/synth_data_aio_BIO_train_v2.json'
-DEV_DATA='./synth_data_gpt4/synth_data_aio_BIO_val_v2.json'
-TEST_DATA='./synth_data_gpt4/synth_data_aio_BIO_test_v2.json'
+TRAIN_DATA='/home/avijit/playground/sdoh/synth_data_gpt4/synth_data_aio_BIO_train_v2.json'
+DEV_DATA='/home/avijit/playground/sdoh/synth_data_gpt4/synth_data_aio_BIO_val_v2.json'
+TEST_DATA='/home/avijit/playground/sdoh/synth_data_gpt4/synth_data_aio_BIO_test_v2.json'
 MAX_LEN=256
 PER_DEVICE_TRAIN_BATCH_SIZE=32
 
 # DATASET="sbdh_gpt4_v2+"
 # DATA_ALIAS="sbdh_gpt4_v2+"
-# TRAIN_DATA='./synth_data_gpt4/synth_data_aio_BIO_train&test_v2.json'
-# DEV_DATA='./synth_data_gpt4/synth_data_aio_BIO_val_v2.json'
-# TEST_DATA='./synth_data_gpt4/synth_data_aio_BIO_val_v2.json'
+# TRAIN_DATA='/home/avijit/playground/sdoh/synth_data_gpt4/synth_data_aio_BIO_train&test_v2.json'
+# DEV_DATA='/home/avijit/playground/sdoh/synth_data_gpt4/synth_data_aio_BIO_val_v2.json'
+# TEST_DATA='/home/avijit/playground/sdoh/synth_data_gpt4/synth_data_aio_BIO_val_v2.json'
 # MAX_LEN=256
 # PER_DEVICE_TRAIN_BATCH_SIZE=32
 
@@ -44,7 +44,7 @@ LEARNING_RATE=1e-4
 SCHEDULER_TYPE="linear"
 PER_DEVICE_EVAL_BATCH_SIZE=8 
 TASK_NAME="ner"
-declare -a SEEDS=(0)
+declare -a SEEDS=(1 2)
 DATE=$(date +%b%d_%Y)
 
 # +-------------------------------------------------+
@@ -65,7 +65,7 @@ then
     for SEED in "${SEEDS[@]}"
     do
         echo "######### Dataset:" ${DATASET} "Seed:" ${SEED} "Model:" ${ALIAS} " #########"
-        CUDA_VISIBLE_DEVICES=0 ${COMMAND} ${SCRIPT} \
+        CUDA_VISIBLE_DEVICES=1 ${COMMAND} ${SCRIPT} \
             --model_name_or_path ${MODEL_NAME} \
             --train_file ${TRAIN_DATA} \
             --validation_file ${DEV_DATA} \

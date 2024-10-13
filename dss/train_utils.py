@@ -33,7 +33,7 @@ def get_config_dir(args):
 
 def train_and_evaluate(args, run, tokenizer, tokenized_datasets, compute_metrics, ner_labels):
     set_seed(run)
-    
+    best_model_checkpoint = None
     config_dir = get_config_dir(args)
     output_dir = f'ckpts/{config_dir}/{run}'  # for model ckpts
     logging_dir = f'logs/{config_dir}/{run}'  # for training logs
@@ -48,8 +48,10 @@ def train_and_evaluate(args, run, tokenizer, tokenized_datasets, compute_metrics
                                       use_pgen=True)
     else:
         model = T5ForConditionalGeneration.from_pretrained(args.from_pretrained if args.do_train else best_model_checkpoint)
+        
+    for param in model.parameters(): param.data = param.data.contiguous()
     
-    if args.dataset in ['sbdh_gpt4_v2', 'sbdh_gpt4_v3', 'sbdh_gpt4_msf', 'sbdh_gpt4_msf_v3']: model.resize_token_embeddings(len(tokenizer))
+    if args.dataset in ['sbdh_gpt4_v2', 'sbdh_gpt4_v3', 'sbdh_gpt4_msf', 'sbdh_gpt4_msf_v3', 'sbdh_gpt4_hr']: model.resize_token_embeddings(len(tokenizer))
 
     if args.parallelize:
         model.parallelize()
@@ -89,11 +91,11 @@ def train_and_evaluate(args, run, tokenizer, tokenized_datasets, compute_metrics
         prediction_loss_only=False,
     )
 
-    if args.model_type == 'task_prefix':
+    if args.model_type == 'task_prefix' or args.model_type == 'task_prefix_8':
         data_collator = TaskPrefixDataCollator(tokenizer=tokenizer, model=model)
     elif args.model_type == 'task_prefix_v2':
         data_collator = TaskPrefixDataCollatorV2(tokenizer=tokenizer, model=model)
-    elif args.model_type == 'standard':
+    elif args.model_type.startswith('standard'):
         data_collator = DataCollatorForSeq2Seq(tokenizer=tokenizer, model=model)
     else:
         raise ValueError
@@ -111,14 +113,14 @@ def train_and_evaluate(args, run, tokenizer, tokenized_datasets, compute_metrics
         'compute_metrics': compute_metrics,
     }
     
-    if args.model_type == 'task_prefix':
+    if args.model_type == 'task_prefix' or args.model_type == 'task_prefix_8':
         trainer = TaskPrefixTrainer(**trainer_kwargs)
     elif args.model_type == 'task_prefix_v2':
         trainer = TaskPrefixTrainerV2(**trainer_kwargs)
-    elif args.model_type == 'standard':
+    elif args.model_type.startswith('standard'):
         trainer_kwargs.pop('alpha')
         trainer_kwargs.pop('output_rationale')
-        if args.dataset in ['sbdh_gpt4_v2', 'sbdh_gpt4_v3', 'sbdh_gpt4_msf', 'sbdh_gpt4_msf_v3']:
+        if args.dataset in ['sbdh_gpt4_v2', 'sbdh_gpt4_v3', 'sbdh_gpt4_msf', 'sbdh_gpt4_msf_v3', 'sbdh_gpt4_hr']:
             trainer = Seq2SeqTrainerNER(**trainer_kwargs)
         else:
             trainer = Seq2SeqTrainer(**trainer_kwargs)

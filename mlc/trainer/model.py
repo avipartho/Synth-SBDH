@@ -340,6 +340,7 @@ class MambaForMultiLabelSequenceClassification(nn.Module, GenerationMixin):
         # Take the mean of hidden_states along the second dimension to create a representative [CLS] feature.
         # source: https://github.com/VuBacktracking/mamba-text-classification/blob/742ddd10231b8a10bf0b61780a35b3c0426afeef/mamba/model.py#L31
         # sequence_output = hidden_states.mean(dim = 1)
+
         sequence_output = hidden_states[:,-1]
         lm_logits = self.classification_head(sequence_output)
 

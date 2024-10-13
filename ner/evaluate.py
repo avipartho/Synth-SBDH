@@ -31,7 +31,7 @@ def process_target_inputs(inputs, target_input_ids, mapping, config):
 
     return processed_ids
 
-def evaluate(
+def evaluate_e2dmodel(
     model, 
     config, 
     tokenizer, 

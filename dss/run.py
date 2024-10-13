@@ -37,7 +37,7 @@ def run(args):
         dataset_loader = SVAMPDatasetLoader()
         dataset_loader_svamp = SVAMPDatasetLoader()
         dataset_loader_asdiv = ASDivDatasetLoader()
-    elif args.dataset in ['sbdh_gpt4_v2', 'sbdh_gpt4_v3', 'sbdh_gpt4_msf', 'sbdh_gpt4_msf_v3']:
+    elif args.dataset in ['sbdh_gpt4_v2', 'sbdh_gpt4_v3', 'sbdh_gpt4_msf', 'sbdh_gpt4_msf_v3', 'sbdh_gpt4_hr']:
         dataset_loader = SBDHDatasetLoader(args.dataset)
     else:
         raise ValueError
@@ -65,7 +65,7 @@ def run(args):
             test_llm_rationales, test_llm_labels = dataset_loader_svamp.load_llm_preds(split='test')
             if args.model_type == 'task_prefix_v2':
                 raise ValueError
-        elif args.dataset in ['sbdh_gpt4_v2', 'sbdh_gpt4_v3', 'sbdh_gpt4_msf', 'sbdh_gpt4_msf_v3']:
+        elif args.dataset in ['sbdh_gpt4_v2', 'sbdh_gpt4_v3', 'sbdh_gpt4_msf', 'sbdh_gpt4_msf_v3', 'sbdh_gpt4_hr']:
             pass # Nothing to do
         else:
             train_llm_rationales, train_llm_labels = dataset_loader.load_llm_preds(split='train')
@@ -81,7 +81,7 @@ def run(args):
     else:
         raise ValueError
 
-    if args.llm is not None and args.dataset not in ['sbdh_gpt4_v2', 'sbdh_gpt4_v3','sbdh_gpt4_msf', 'sbdh_gpt4_msf_v3']:
+    if args.llm is not None and args.dataset not in ['sbdh_gpt4_v2', 'sbdh_gpt4_v3','sbdh_gpt4_msf', 'sbdh_gpt4_msf_v3', 'sbdh_gpt4_hr']:
         datasets['train'] = datasets['train'].add_column('llm_label', train_llm_labels)
         datasets['test'] = datasets['test'].add_column('llm_label', test_llm_labels)
         datasets['train'] = datasets['train'].add_column('llm_rationale', train_llm_rationales)
@@ -93,7 +93,7 @@ def run(args):
     if args.subsample < 1.0:
         datasets['train'] = datasets['train'].train_test_split(test_size=1.0-args.subsample, seed=args.run)['train']
 
-    if args.dataset not in ['sbdh_gpt4_v2', 'sbdh_gpt4_v3', 'sbdh_gpt4_msf', 'sbdh_gpt4_msf_v3']:
+    if args.dataset not in ['sbdh_gpt4_v2', 'sbdh_gpt4_v3', 'sbdh_gpt4_msf', 'sbdh_gpt4_msf_v3', 'sbdh_gpt4_hr']:
         if dataset_loader.has_valid:
             if args.llm is None:
                 pass
@@ -126,7 +126,7 @@ def run(args):
         if args.dataset not in ['svamp', 'asdiv']:
             train_label_acc = compute_text_acc(datasets['train']['llm_label'], datasets['train']['label'])
             test_label_acc = compute_text_acc(datasets['test']['llm_label'], datasets['test']['label'])
-        elif args.dataset in ['sbdh_gpt4_v2', 'sbdh_gpt4_v3', 'sbdh_gpt4_msf', 'sbdh_gpt4_msf_v3']:
+        elif args.dataset in ['sbdh_gpt4_v2', 'sbdh_gpt4_v3', 'sbdh_gpt4_msf', 'sbdh_gpt4_msf_v3', 'sbdh_gpt4_hr']:
             raise ValueError
         else:
             train_label_acc = compute_equation_acc(datasets['train']['llm_label'], datasets['train']['label'])
@@ -150,7 +150,7 @@ def run(args):
     #### Prepare datasets Prepare data for training
     tokenizer = AutoTokenizer.from_pretrained(args.from_pretrained.replace('-ptr',''))
     label_list = None
-    if args.dataset in ['sbdh_gpt4_v2', 'sbdh_gpt4_v3', 'sbdh_gpt4_msf', 'sbdh_gpt4_msf_v3']:
+    if args.dataset in ['sbdh_gpt4_v2', 'sbdh_gpt4_v3', 'sbdh_gpt4_msf', 'sbdh_gpt4_msf_v3', 'sbdh_gpt4_hr']:
         label_list = ['barriers_to_care', 'substance_abuse', 'housing_insecurity', 'financial_insecurity', 'psychiatric_symptoms_or_disorders', \
             'isolation_or_loss_of_relationship', 'patient_disability', 'violence', 'legal_problems', 'transitions_of_care', 'pain', 'food_insecurity']
         tokenizer.add_tokens(['<'+l+'>' for l in label_list])
@@ -163,7 +163,7 @@ def run(args):
         )
 
 
-    if args.model_type == 'task_prefix' and args.llm is not None:
+    if (args.model_type == 'task_prefix' or args.model_type == 'task_prefix_8') and args.llm is not None:
         def tokenize_function(examples):
             model_inputs = tokenizer(['predict: ' + text for text in examples['input']], max_length=args.max_input_length, truncation=True)
             expl_model_inputs = tokenizer(['explain: ' + text for text in examples['input']], max_length=args.max_input_length, truncation=True)
@@ -200,7 +200,7 @@ def run(args):
 
             return model_inputs
 
-    elif args.model_type == 'standard':
+    elif args.model_type.startswith('standard'):
         def tokenize_function(examples):
             model_inputs = tokenizer(
                 examples['input'],
@@ -232,8 +232,8 @@ def run(args):
         )
 
 
-    if args.model_type == 'standard':
-        if args.dataset in ['sbdh_gpt4_v2', 'sbdh_gpt4_v3', 'sbdh_gpt4_msf', 'sbdh_gpt4_msf_v3']:
+    if args.model_type.startswith('standard'):
+        if args.dataset in ['sbdh_gpt4_v2', 'sbdh_gpt4_v3', 'sbdh_gpt4_msf', 'sbdh_gpt4_msf_v3', 'sbdh_gpt4_hr']:
             compute_metrics = compute_metrics_ner(tokenizer, label_list, args.result_file)
         elif args.dataset not in ['svamp', 'asdiv']:
             compute_metrics = compute_metrics_text_aux(tokenizer)
@@ -241,7 +241,7 @@ def run(args):
             compute_metrics = compute_metrics_equation_aux(tokenizer)
 
     else:
-        if args.dataset in ['sbdh_gpt4_v2', 'sbdh_gpt4_v3', 'sbdh_gpt4_msf', 'sbdh_gpt4_msf_v3']:
+        if args.dataset in ['sbdh_gpt4_v2', 'sbdh_gpt4_v3', 'sbdh_gpt4_msf', 'sbdh_gpt4_msf_v3', 'sbdh_gpt4_hr']:
             compute_metrics = compute_metrics_ner(tokenizer, label_list, args.result_file)
         elif args.dataset not in ['svamp', 'asdiv']:
             compute_metrics = compute_metrics_text(tokenizer)
@@ -255,7 +255,7 @@ def run(args):
         print(tokenized_datasets[k][0])
         print(tokenizer.decode(tokenized_datasets[k][0]['input_ids']))
         print(tokenizer.decode(tokenized_datasets[k][0]['labels']))
-        if args.model_type != 'standard': print(tokenizer.decode(tokenized_datasets[k][0]['aux_labels']))
+        if not args.model_type.startswith('standard'): print(tokenizer.decode(tokenized_datasets[k][0]['aux_labels']))
         
     label_list = ['<'+l+'>' for l in label_list] if label_list is not None else None
     train_and_evaluate(args, args.run, tokenizer, tokenized_datasets, compute_metrics, label_list)

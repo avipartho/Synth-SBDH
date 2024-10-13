@@ -10,12 +10,12 @@
 # MODEL_NAME="t5-large"
 # ALIAS="t5_large"
 
-MODEL_NAME="google/flan-t5-base"
-ALIAS="flan_t5_base"
+# MODEL_NAME="google/flan-t5-base"
+# ALIAS="flan_t5_base"
 
-# MODEL_NAME="google/t5-v1_1-base"
-# # MODEL_NAME="liangtaiwan/t5-v1_1-lm100k-base"
-# ALIAS="t5v1_1_base"
+MODEL_NAME="google/t5-v1_1-base"
+# MODEL_NAME="liangtaiwan/t5-v1_1-lm100k-base"
+ALIAS="t5v1_1_base"
 
 # MODEL_NAME="facebook/bart-base"
 # ALIAS="bart_base"
@@ -35,21 +35,21 @@ ALIAS="flan_t5_base"
 # MAX_LEN=256
 # PER_DEVICE_TRAIN_BATCH_SIZE=32
 
-# DATASET="sbdh_gpt4_v2"
-# DATA_ALIAS="sbdh_gpt4_v2"
-# TRAIN_DATA='./synth_data_gpt4/synth_data_aio_BIO_train_v2.json'
-# DEV_DATA='./synth_data_gpt4/synth_data_aio_BIO_val_v2.json'
-# TEST_DATA='./synth_data_gpt4/synth_data_aio_BIO_test_v2.json'
-# MAX_LEN=256
-# PER_DEVICE_TRAIN_BATCH_SIZE=32
-
-DATASET="sbdh_gpt4_v2+"
-DATA_ALIAS="sbdh_gpt4_v2+"
-TRAIN_DATA='./synth_data_gpt4/synth_data_aio_BIO_train&test_v2.json'
+DATASET="sbdh_gpt4_v2"
+DATA_ALIAS="sbdh_gpt4_v2"
+TRAIN_DATA='./synth_data_gpt4/synth_data_aio_BIO_train_v2.json'
 DEV_DATA='./synth_data_gpt4/synth_data_aio_BIO_val_v2.json'
-TEST_DATA='./synth_data_gpt4/synth_data_aio_BIO_val_v2.json'
+TEST_DATA='./synth_data_gpt4/synth_data_aio_BIO_test_v2.json'
 MAX_LEN=256
 PER_DEVICE_TRAIN_BATCH_SIZE=32
+
+# DATASET="sbdh_gpt4_v2+"
+# DATA_ALIAS="sbdh_gpt4_v2+"
+# TRAIN_DATA='./synth_data_gpt4/synth_data_aio_BIO_train&test_v2.json'
+# DEV_DATA='./synth_data_gpt4/synth_data_aio_BIO_val_v2.json'
+# TEST_DATA='./synth_data_gpt4/synth_data_aio_BIO_val_v2.json'
+# MAX_LEN=256
+# PER_DEVICE_TRAIN_BATCH_SIZE=32
 
 # +-------------------------------------------------+
 #  Other parameters
@@ -80,7 +80,7 @@ then
     for SEED in "${SEEDS[@]}"
     do
         echo "######### Dataset:" ${DATASET} "Seed:" ${SEED} "Model:" ${ALIAS} " #########"
-        CUDA_VISIBLE_DEVICES=6 ${COMMAND} ${SCRIPT} \
+        CUDA_VISIBLE_DEVICES=7 ${COMMAND} ${SCRIPT} \
             --model_name_or_path ${MODEL_NAME} \
             --logfile ./logs/${DATE}_${ALIAS}_${DATA_ALIAS}_noPtr.log \
             --train_file ${TRAIN_DATA} \
@@ -102,7 +102,7 @@ then
             --best_result_file ./best_result/${ALIAS}_best_result_${DATA_ALIAS}_${SEED}_noPtr.txt \
             --output_dir ./saved_models/${ALIAS}_${DATA_ALIAS}_${SEED}_noPtr \
             --per_device_train_batch_size=${PER_DEVICE_TRAIN_BATCH_SIZE} \
-            --per_device_eval_batch_size=${PER_DEVICE_EVAL_BATCH_SIZE} 2>&1 | tee stdout.txt
+            --per_device_eval_batch_size=${PER_DEVICE_EVAL_BATCH_SIZE} 2>&1 | tee stdout_cur.txt
         break
     done
 else

@@ -7,11 +7,11 @@
 # MODEL_NAME="bert-base-cased"
 # ALIAS="bert_base"
 
-MODEL_NAME="roberta-base"
-ALIAS="roberta_base"
+# MODEL_NAME="roberta-base"
+# ALIAS="roberta_base"
 
-# MODEL_NAME="./RoBERTa-base-PM-M3-Voc-distill-align"
-# ALIAS="cliroberta_base"
+MODEL_NAME="./RoBERTa-base-PM-M3-Voc-distill-align"
+ALIAS="cliroberta_base"
 
 # MODEL_NAME="gpt2"
 # ALIAS="gpt2"
@@ -67,7 +67,7 @@ then
   for SEED in "${SEEDS[@]}"
   do
     echo "######### Dataset:" ${DATASET} "Seed:" ${SEED} " #########"
-    CUDA_VISIBLE_DEVICES=4 python run_ner.py \
+    CUDA_VISIBLE_DEVICES=5 python run_ner.py \
       --model_name_or_path ${MODEL_NAME} \
       --train_file ${TRAIN_DATA} \
       --validation_file ${DEV_DATA} \
@@ -76,7 +76,7 @@ then
       --task_name ${TASK_NAME} \
       --seed ${SEED} \
       --per_device_train_batch_size ${PER_DEVICE_TRAIN_BATCH_SIZE} \
-      --per_device_eval_batch_size ${PER_DEVICE_EVAL_BATCH_SIZE} \
+      --per_device_eval_batch_size=${PER_DEVICE_EVAL_BATCH_SIZE} \
       --learning_rate ${LEARNING_RATE} \
       --num_train_epochs ${EPOCH} \
       --max_length ${MAX_LEN} \

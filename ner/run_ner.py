@@ -28,7 +28,7 @@ import numpy as np
 
 import datasets
 import torch
-from datasets import ClassLabel, load_dataset, load_metric
+from datasets import ClassLabel, load_dataset
 from torch.utils.data import DataLoader
 from tqdm.auto import tqdm
 from seqeval.metrics import classification_report, f1_score
@@ -188,7 +188,7 @@ def parse_args():
         choices=["linear", "cosine", "cosine_with_restarts", "polynomial", "constant", "constant_with_warmup"],
     )
     parser.add_argument(
-        "--num_warmup_steps", type=int, default=0, help="Number of steps for the warmup in the lr scheduler."
+        "--warmup_proportion", type=int, default=0, help="Number of steps for the warmup in the lr scheduler."
     )
     parser.add_argument("--output_dir", type=str, default=None, help="Where to store the final model.")
     parser.add_argument("--best_result_file", type=str, default=None, help="Where to store the best results.")
@@ -464,12 +464,14 @@ def main():
         tokenizer = AutoTokenizer.from_pretrained(tokenizer_name_or_path, use_fast=True)
     if tokenizer.pad_token is None: # for gpt2
         tokenizer.pad_token = tokenizer.eos_token
+        tokenizer.pad_token_id = tokenizer.eos_token_id
     
     if args.model_name_or_path:
         model = AutoModelForTokenClassification.from_pretrained(
             args.model_name_or_path,
             from_tf=bool(".ckpt" in args.model_name_or_path),
             config=config,
+            quantization_config=nf4_config if 'llama' in args.model_name_or_path else None
         )
         # model = RobertaNer.from_pretrained(
         #     args.model_name_or_path,
@@ -482,7 +484,7 @@ def main():
         model = AutoModelForTokenClassification.from_config(config)
 
     model.resize_token_embeddings(len(tokenizer))
-
+        
     # Preprocessing the datasets.
     # First we tokenize all the texts.
     padding = "max_length" if args.pad_to_max_length else False
@@ -603,10 +605,10 @@ def main():
         args.num_train_epochs = math.ceil(args.max_train_steps / num_update_steps_per_epoch)
 
     lr_scheduler = get_scheduler(
-        name=args.lr_scheduler_type,
-        optimizer=optimizer,
-        num_warmup_steps=args.num_warmup_steps,
-        num_training_steps=args.max_train_steps,
+        name = args.lr_scheduler_type,
+        optimizer = optimizer,
+        num_warmup_steps = int(args.warmup_proportion * args.max_train_steps),
+        num_training_steps = args.max_train_steps,
     )
 
     def get_labels(predictions, references):

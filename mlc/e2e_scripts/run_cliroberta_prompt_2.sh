@@ -3,13 +3,19 @@
 #  Select dataset 
 # +-------------------------------------------------+
 DATASET="mimic_sbdh"
-DATA_PATH="/home/avijit/playground/sdoh/mimic-sbdh/mimic_sbdh"
+DATA_PATH="./mimic-sbdh/mimic_sbdh"
 MAX_LEN=256
 BATCH_SIZE=32
 NUM_EPOCH=8
 
 # DATASET="sbdh_gpt4_v2"
-# DATA_PATH="/home/avijit/playground/sdoh/synth_data_gpt4/sbdh_gpt4_v2_multilabel"
+# DATA_PATH="./synth_data_gpt4/sbdh_gpt4_v2_multilabel"
+# MAX_LEN=256
+# BATCH_SIZE=32
+# NUM_EPOCH=40
+
+# DATASET="sbdh_gpt4_msf"
+# DATA_PATH="./synth_data_gpt4/sbdh_gpt4_msf_multilabel"
 # MAX_LEN=256
 # BATCH_SIZE=32
 # NUM_EPOCH=40
@@ -17,7 +23,15 @@ NUM_EPOCH=8
 # +-------------------------------------------------+
 #  Select pretrained model
 # +-------------------------------------------------+
-MODEL_PATH="./saved_models/cliroberta_prompt_sbdh_gpt4_msf_v3_0/checkpoint-794"
+# MODEL_PATH="./saved_models/cliroberta_prompt_sbdh_gpt4_msf_0/checkpoint-444"
+
+# MODEL_PATH="./saved_models/cliroberta_prompt_sbdh_gpt4_v2_0/checkpoint-408"
+
+# MODEL_PATH="./saved_models/cliroberta_prompt_sbdh_gpt4_msf_v3_0/checkpoint-794"
+
+PRETRAINED_ON="sbdh_gpt4_hr"
+# PRETRAINED_ON="sbdh_gpt4_hr+"
+MODEL_PATH="./saved_models/cliroberta_prompt_${PRETRAINED_ON}_0/"
 
 cd ../
 
@@ -31,8 +45,8 @@ for SEED in "${SEEDS[@]}"
     CUDA_VISIBLE_DEVICES=1 python main_roberta_prompt.py \
                     --seed ${SEED} --data_seed ${SEED} \
                     --data_path ${DATA_PATH} \
-                    --config_name /home/avijit/playground/sdoh/RoBERTa-base-PM-M3-Voc-distill-align \
-                    --tokenizer_name /home/avijit/playground/sdoh/RoBERTa-base-PM-M3-Voc-distill-align \
+                    --config_name ./RoBERTa-base-PM-M3-Voc-distill-align \
+                    --tokenizer_name ./RoBERTa-base-PM-M3-Voc-distill-align \
                     --model_name_or_path ${MODEL_PATH} \
                     --do_train --do_eval --do_predict --max_seq_length ${MAX_LEN} \
                     --per_device_train_batch_size ${BATCH_SIZE} --gradient_accumulation_steps 8 --per_device_eval_batch_size 8 \
@@ -42,8 +56,8 @@ for SEED in "${SEEDS[@]}"
                     --evaluation_strategy epoch --save_strategy epoch --logging_strategy epoch  \
                     --overwrite_output_dir True \
                     --load_best_model_at_end --metric_for_best_model eval_f1_macro --greater_is_better True --save_total_limit 2 \
-                    --run_name cliroberta_prompt_frm_sbdh_gpt4_msf_v3_ml_${DATASET}_${SEED}\
-                    --output_dir ./saved_models/cliroberta_prompt_frm_sbdh_gpt4_msf_v3_${DATASET}_${SEED} 2>&1 | tee /home/avijit/playground/sdoh/stdout/stdout_cliroberta_prompt_frm_sbdh_gpt4_msf_v3_${DATASET}_${SEED}.txt
+                    --run_name cliroberta_prompt_frm_${PRETRAINED_ON}_ml_${DATASET}_${SEED}\
+                    --output_dir ./saved_models/cliroberta_prompt_frm_${PRETRAINED_ON}_${DATASET}_${SEED} 2>&1 | tee ./stdout/stdout_cliroberta_prompt_frm_${PRETRAINED_ON}_${DATASET}_${SEED}.txt
     done
 
 # for SEED in "${SEEDS[@]}"
@@ -52,9 +66,9 @@ for SEED in "${SEEDS[@]}"
 #     WANDB_MODE=disabled CUDA_VISIBLE_DEVICES=0 python main_roberta_prompt.py \
 #                     --seed ${SEED} --data_seed ${SEED} \
 #                     --data_path ${DATA_PATH} \
-#                     --config_name /home/avijit/playground/sdoh/RoBERTa-base-PM-M3-Voc-distill-align \
-#                     --tokenizer_name /home/avijit/playground/sdoh/RoBERTa-base-PM-M3-Voc-distill-align \
-#                     --model_name_or_path /home/avijit/playground/sdoh/RoBERTa-base-PM-M3-Voc-distill-align \
+#                     --config_name ./RoBERTa-base-PM-M3-Voc-distill-align \
+#                     --tokenizer_name ./RoBERTa-base-PM-M3-Voc-distill-align \
+#                     --model_name_or_path ./RoBERTa-base-PM-M3-Voc-distill-align \
 #                     --do_predict --max_seq_length ${MAX_LEN} \
 #                     --per_device_train_batch_size ${BATCH_SIZE} --gradient_accumulation_steps 8 --per_device_eval_batch_size 8 \
 #                     --adam_beta1 0.9 --adam_beta2 0.95 --adam_epsilon 1e-5 \
@@ -64,5 +78,5 @@ for SEED in "${SEEDS[@]}"
 #                     --overwrite_output_dir True \
 #                     --load_best_model_at_end --metric_for_best_model eval_f1_macro --greater_is_better True --save_total_limit 2 \
 #                     --run_name cliroberta_prompt_${DATASET}_ml_${SEED}\
-#                     --output_dir ./saved_models/cliroberta_prompt_${DATASET}_${SEED} 2>&1 | tee /home/avijit/playground/sdoh/stdout/stdout_cliroberta_prompt_${SEED}_inf.txt
+#                     --output_dir ./saved_models/cliroberta_prompt_${DATASET}_${SEED} 2>&1 | tee ./stdout/stdout_cliroberta_prompt_${SEED}_inf.txt
 #     done

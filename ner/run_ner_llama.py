@@ -28,7 +28,7 @@ import numpy as np
 
 import datasets
 import torch
-from datasets import ClassLabel, load_dataset, load_metric
+from datasets import ClassLabel, load_dataset
 from torch.utils.data import DataLoader
 from tqdm.auto import tqdm
 from seqeval.metrics import classification_report, f1_score

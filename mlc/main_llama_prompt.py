@@ -335,10 +335,10 @@ def main():
         bnb_4bit_compute_dtype=torch.bfloat16
     )
     model = LlamaForMaskedLM.from_pretrained(
-            model_args.model_name_or_path,
-            config=config,
-            quantization_config=nf4_config
-        )
+        model_args.model_name_or_path,
+        config=config,
+        quantization_config=nf4_config
+    )
     
     if training_args.do_train: # train starting from base model
         if training_args.lora_module_path is not None: # train starting from pretrained lora module ckpt

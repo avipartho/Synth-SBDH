@@ -1,6 +1,6 @@
 # Synth-SBDH
-Data and Codes to reproduce experiments in the paper **[Synth-SBDH: A Synthetic Dataset of Social and
-Behavioral Determinants of Health for Clinical Text](https://arxiv.org/abs/2406.06056)**.
+Data and Codes to reproduce experiments in the paper **Synth-SBDH: A Synthetic Dataset of Social and
+Behavioral Determinants of Health for Clinical Text**.
 <!-- - [Synth-SBDH](#synth-sbdh)
   - [Synth-SBDH Dataset](#synth-sbdh-dataset)
   - [Experiments](#experiments)
@@ -71,17 +71,7 @@ Fine-tuning on Synth-SBDH (SFT<sub>stage1</sub>)
     bash run_distilling_step_by_step_standard.sh # standard setup
     bash run_distilling_step_by_step_taskprefix.sh # with dss framework
   ```
-## Citation
-```
-@misc{mitra2024synthsbdh,
-      title={Synth-SBDH: A Synthetic Dataset of Social and Behavioral Determinants of Health for Clinical Text}, 
-      author={Avijit Mitra and Emily Druhl and Raelene Goodwin and Hong Yu},
-      year={2024},
-      eprint={2406.06056},
-      archivePrefix={arXiv},
-      primaryClass={id='cs.CL' full_name='Computation and Language' is_active=True alt_name='cmp-lg' in_archive='cs' is_general=False description='Covers natural language processing. Roughly includes material in ACM Subject Class I.2.7. Note that work on artificial languages (programming languages, logics, formal systems) that does not explicitly address natural-language issues broadly construed (natural-language processing, computational linguistics, speech, text retrieval, etc.) is not appropriate for this area.'}
-}
-```
+
 ## Acknowledgments
 Some of the scripts were taken and repurposed from the following repositories -
 - https://github.com/whaleloops/ClinicalMamba

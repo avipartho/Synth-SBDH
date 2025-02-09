@@ -334,13 +334,13 @@ def main():
         bnb_4bit_use_double_quant=True,
         bnb_4bit_compute_dtype=torch.bfloat16
     )
-    
-    if training_args.do_train: # train starting from base model
-        model = LlamaForMaskedLM.from_pretrained(
+    model = LlamaForMaskedLM.from_pretrained(
             model_args.model_name_or_path,
             config=config,
             quantization_config=nf4_config
         )
+    
+    if training_args.do_train: # train starting from base model
         if training_args.lora_module_path is not None: # train starting from pretrained lora module ckpt
             with open(f'{training_args.lora_module_path}/trainer_state.json') as f:
                 lora_module_ckpt = json.load(f)['best_model_checkpoint']    

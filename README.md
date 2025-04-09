@@ -13,7 +13,7 @@ Behavioral Determinants of Health for Clinical Text](https://arxiv.org/abs/2406.
       - [DSS](#dss) -->
 
 ## Synth-SBDH Dataset
-Synth-SBDH dataset, seed examples, prompt and data generation scripts will be released upon acceptance.
+Synth-SBDH dataset, data generation scripts and fine-tuned model checkpoints will be released upon acceptance.
 
 ## Experiments
 There are three directories for the three different experiments conducted in the paper - [mlc](mlc), [ner](ner) and [dss](dss). Each folder is self-contained with all the necessary scripts.
@@ -32,7 +32,7 @@ All models used in the three experiments are publicly available. Here is a list 
 1. [RoBERTa-base](https://huggingface.co/roberta-base)
 2. [ClinicalRoBERTa-base](https://dl.fbaipublicfiles.com/biolm/RoBERTa-base-PM-M3-Voc-distill-align-hf.tar.gz)
 3. [Mamba-130m](https://huggingface.co/state-spaces/mamba-130m)
-4. ClinicalMamba-130m (Will be released soon, keep an eye [here](https://github.com/whaleloops/ClinicalMamba) to know more.)
+4. [ClinicalMamba-130m](https://huggingface.co/whaleloops/clinicalmamba-130m-hf)
 5. [T5-base](https://huggingface.co/google/t5-v1_1-base)
 6. [FLAN-T5-base](https://huggingface.co/google/flan-t5-base)
 

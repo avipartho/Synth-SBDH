@@ -50,7 +50,7 @@ from transformers.cache_utils import Cache
 from trainer.data import DataCollatorForMambaDataset, proc_labels, proc_note
 from trainer.metrics import all_metrics, find_threshold_micro
 from trainer.config_labels import label2index
-from trainer_hf.modeling_llama import LlamaForMaskedLM
+from trainer.modeling_llama import LlamaForMaskedLM
 
 from datasets import load_dataset, disable_caching
 disable_caching()

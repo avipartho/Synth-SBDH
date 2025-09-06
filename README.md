@@ -12,8 +12,9 @@ Behavioral Determinants of Health for Clinical Text](https://arxiv.org/abs/2406.
       - [NER](#ner)
       - [DSS](#dss) -->
 
-## Synth-SBDH Dataset
-Synth-SBDH dataset, data generation scripts and fine-tuned model checkpoints will be released upon acceptance.
+## Downloadable Resources
+- [Synth-SBDH dataset](https://huggingface.co/datasets/bio-nlp-umass/Synth-SBDH)
+- [fine-tuned model checkpoints](https://huggingface.co/collections/bio-nlp-umass/models-for-synth-sbdh-67928347fb4b03411a30fc9f)
 
 ## Experiments
 There are three directories for the three different experiments conducted in the paper - [mlc](mlc), [ner](ner) and [dss](dss). Each folder is self-contained with all the necessary scripts.

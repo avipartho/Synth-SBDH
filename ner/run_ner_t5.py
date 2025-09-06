@@ -22,7 +22,7 @@ import torch
 from datasets import ClassLabel,load_dataset
 from torch.utils.data.dataloader import DataLoader
 from tqdm.auto import tqdm
-from peft import LoraConfig, get_peft_model, PeftModel, prepare_model_for_kbit_training
+from peft import LoraConfig, get_peft_model, PeftModel, prepare_model_for_kbit_training, TaskType
 
 import transformers
 from accelerate import Accelerator
@@ -458,45 +458,35 @@ def main():
         tokenizer.pad_token = tokenizer.eos_token
         tokenizer.pad_token_id = tokenizer.eos_token_id
 
-    if 't5' in args.model_name_or_path or 'bart' in args.model_name_or_path:
+    if 't5-base' in args.model_name_or_path or 't5-large' in args.model_name_or_path:
         model = AutoModelForSeq2SeqLM.from_pretrained(
             args.model_name_or_path,
             config=config,
         )
-    elif 'gpt' in args.model_name_or_path:
-        model = AutoModelForCausalLM.from_pretrained(
-            args.model_name_or_path,
-            config=config,
-        )
-    elif 'llama' in args.model_name_or_path:
+    elif 't5-xl' in args.model_name_or_path:
         nf4_config = BitsAndBytesConfig(
             load_in_4bit=True,
             bnb_4bit_quant_type="nf4",
             bnb_4bit_use_double_quant=True,
             bnb_4bit_compute_dtype=torch.bfloat16
         )
-        model = AutoModelForCausalLM.from_pretrained(
+        model = AutoModelForSeq2SeqLM.from_pretrained(
             args.model_name_or_path,
             config=config,
             quantization_config=nf4_config
         )
         peft_config = LoraConfig(
-            lora_alpha=128,
-            lora_dropout=0.1,
-            r=64,
+            r=32, # Rank
+            lora_alpha=32,
+            target_modules=["q", "v"],
+            lora_dropout=0.05,
             bias="none",
-                target_modules=[
-                "q_proj",
-                "k_proj",
-                "v_proj",
-                "o_proj",
-                "gate_proj",
-                "up_proj",
-                "down_proj",
-                "lm_head",
-            ],
-            task_type="CAUSAL_LM"
+            task_type=TaskType.SEQ_2_SEQ_LM # FLAN-T5
         )
+        
+        model = prepare_model_for_kbit_training(model)
+        model = get_peft_model(model, peft_config)
+        model.print_trainable_parameters()
     else:
         logger.info("Training new model from scratch")
         model = AutoModelForSeq2SeqLM.from_config(config)

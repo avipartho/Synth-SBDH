@@ -559,7 +559,7 @@ def main():
             args.model_name_or_path,
             from_tf=bool(".ckpt" in args.model_name_or_path),
             config=config,
-            quantization_config=nf4_config if 'llama' in args.model_name_or_path else None
+            quantization_config=nf4_config
         )
         
         model.resize_token_embeddings(len(tokenizer))

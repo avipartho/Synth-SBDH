@@ -10,8 +10,11 @@
 # MODEL_NAME="t5-large"
 # ALIAS="t5_large"
 
-MODEL_NAME="google/flan-t5-base"
-ALIAS="flan_t5_base"
+# MODEL_NAME="google/flan-t5-base"
+# ALIAS="flan_t5_base"
+
+MODEL_NAME="google/flan-t5-xl"
+ALIAS="flan_t5_xl"
 
 # MODEL_NAME="google/t5-v1_1-base"
 # # MODEL_NAME="liangtaiwan/t5-v1_1-lm100k-base"
@@ -27,39 +30,23 @@ ALIAS="flan_t5_base"
 #  Dataset specific parameters
 # +-------------------------------------------------+
 
-# DATASET="sbdh_gpt4"
-# DATA_ALIAS="sbdh_gpt4"
-# TRAIN_DATA='./synth_data_gpt4/synth_data_aio_BIO_train.json'
-# DEV_DATA='./synth_data_gpt4/synth_data_aio_BIO_val.json'
-# TEST_DATA='./synth_data_gpt4/synth_data_aio_BIO_test.json'
-# MAX_LEN=256
-# PER_DEVICE_TRAIN_BATCH_SIZE=32
-
-# DATASET="sbdh_gpt4_v2"
-# DATA_ALIAS="sbdh_gpt4_v2"
-# TRAIN_DATA='./synth_data_gpt4/synth_data_aio_BIO_train_v2.json'
-# DEV_DATA='./synth_data_gpt4/synth_data_aio_BIO_val_v2.json'
-# TEST_DATA='./synth_data_gpt4/synth_data_aio_BIO_test_v2.json'
-# MAX_LEN=256
-# PER_DEVICE_TRAIN_BATCH_SIZE=32
-
-DATASET="sbdh_gpt4_v2+"
-DATA_ALIAS="sbdh_gpt4_v2+"
-TRAIN_DATA='./synth_data_gpt4/synth_data_aio_BIO_train&test_v2.json'
-DEV_DATA='./synth_data_gpt4/synth_data_aio_BIO_val_v2.json'
-TEST_DATA='./synth_data_gpt4/synth_data_aio_BIO_val_v2.json'
+DATASET="sbdh_gpt4_v2"
+DATA_ALIAS="sbdh_gpt4_v2"
+TRAIN_DATA='/home/avijit/playground/sdoh/synth_data_gpt4/synth_data_aio_BIO_train_v2.json'
+DEV_DATA='/home/avijit/playground/sdoh/synth_data_gpt4/synth_data_aio_BIO_val_v2.json'
+TEST_DATA='/home/avijit/playground/sdoh/synth_data_gpt4/synth_data_aio_BIO_test_v2.json'
 MAX_LEN=256
 PER_DEVICE_TRAIN_BATCH_SIZE=32
 
 # +-------------------------------------------------+
 #  Other parameters
 # +-------------------------------------------------+
-EPOCH=40
+EPOCH=20 # 40 for base models, 20 for t5-xl
 LEARNING_RATE=5e-5
 SCHEDULER_TYPE="linear"
 PER_DEVICE_EVAL_BATCH_SIZE=8 
 NUM_BEAMS=1 # set it to 1 for greedy decoding
-declare -a SEEDS=(0 1 2)
+declare -a SEEDS=(0)
 DATE=$(date +%b%d_%Y)
 
 # +-------------------------------------------------+
@@ -71,6 +58,7 @@ GPU_IDS="0,1,2,3"
 # COMMAND="accelerate launch"
 COMMAND="python"
 SCRIPT="run_ner_t5.py"
+export CUDA_DEVICE_ORDER="PCI_BUS_ID" 
 
 # +-------------------------------------------------+
 #  Training
@@ -80,7 +68,7 @@ then
     for SEED in "${SEEDS[@]}"
     do
         echo "######### Dataset:" ${DATASET} "Seed:" ${SEED} "Model:" ${ALIAS} " #########"
-        CUDA_VISIBLE_DEVICES=6 ${COMMAND} ${SCRIPT} \
+        CUDA_VISIBLE_DEVICES=0 ${COMMAND} ${SCRIPT} \
             --model_name_or_path ${MODEL_NAME} \
             --logfile ./logs/${DATE}_${ALIAS}_${DATA_ALIAS}_noPtr.log \
             --train_file ${TRAIN_DATA} \

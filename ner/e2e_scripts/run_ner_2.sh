@@ -22,15 +22,6 @@ ALIAS="cliroberta_base"
 #  Dataset specific parameters
 # +-------------------------------------------------+
 
-# DATASET="sbdh_gpt4"
-# DATA_ALIAS="sbdh_gpt4"
-# TRAIN_DATA='./synth_data_gpt4/synth_data_aio_BIO_train.json'
-# DEV_DATA='./synth_data_gpt4/synth_data_aio_BIO_val.json'
-# TEST_DATA='./synth_data_gpt4/synth_data_aio_BIO_test.json'
-# MAX_LEN=256
-# PER_DEVICE_TRAIN_BATCH_SIZE=64
-# LEARNING_RATE=1e-5
-
 DATASET="sbdh_gpt4_v2"
 DATA_ALIAS="sbdh_gpt4_v2"
 TRAIN_DATA='./synth_data_gpt4/synth_data_aio_BIO_train_v2.json'
@@ -39,15 +30,6 @@ TEST_DATA='./synth_data_gpt4/synth_data_aio_BIO_test_v2.json'
 MAX_LEN=256
 PER_DEVICE_TRAIN_BATCH_SIZE=64
 LEARNING_RATE=1e-5
-
-# DATASET="sbdh_gpt4_v2+"
-# DATA_ALIAS="sbdh_gpt4_v2+"
-# TRAIN_DATA='./synth_data_gpt4/synth_data_aio_BIO_train&test_hr_v2.json'
-# DEV_DATA='./synth_data_gpt4/synth_data_aio_BIO_val_v2.json'
-# TEST_DATA='./synth_data_gpt4/synth_data_aio_BIO_val_v2.json'
-# MAX_LEN=256
-# PER_DEVICE_TRAIN_BATCH_SIZE=64
-# LEARNING_RATE=1e-5
 
 # +-------------------------------------------------+
 #  Other parameters

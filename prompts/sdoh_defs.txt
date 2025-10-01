@@ -1,0 +1,35 @@
+Food Insecurity: Lack of consistent access to enough food for every person in a household to live an active, healthy life (USDA definition).
+
+Job Insecurity: Job insecurity includes unemployment, underemployment, unstable employment, fear of losing job or benefits, vocational rehabilitation/training.
+
+Housing Insecurity: Housing insecurity refers to unstable housing due to a variety of reasons which may include eviction, inability to afford rent, foreclosure or displacement due todomestic/roommate/landlord issues.
+
+Financial Insecurity: The anxiety produced by the possible exposure to adverse economic events and by the anticipation of the difficulty to recover from them.
+
+Legal Problems: Legal problems entail violations of law, associated punishments, and mention of related officials, places and processes e.g., attorney, judge, parole officer, court, jail, prison, incarceration, child custody/child support issues.
+
+Social Isolation: A state in which the individual lacks a sense of belonging socially, lacks engagement with others, has a minimal number of social contacts, and they are deficient in fulfilling and quality relationships. (Nicholson NR. A review of social isolation: an important but underassessed condition in older adults.
+
+Physical Isolation: Physical isolation results in less involvement with others, often due to disability, illness, housebound or bedbound, that prevents active participation in life outside of home/immediate physical environment.
+
+Loss of Relationship: A loss of personal relationship, to include divorce, separation, death, estrangement, or breakdown of interpersonal communication.
+
+Barriers to Care: Barriers to care are factors that interfere with healthcare access, and may include transportation issues, cognitive or communication difficulties, lack of trust in care system or lack of rapport with provider(s).
+
+Violence: Violence category includes elements of the individual's environment, as well as the larger societal environment. Presence of weapons, various types of abuse (physical, emotional/psychological, sexual), exposure to combat, bullying, harassment, threats, and racism are categorized as violence. Violence includes patient as both perpetrator and victim.
+
+Transitions of Care: Transitions of care category identifies healthcare-related points of vulnerability; examples include admission, discharge, medication change, change of provider.
+
+Stigma/Shame: Stigma/shame takes into consideration feelings of guilt, rejection, shame, embarrassment, humiliation, and regret.
+
+Demographics: Demographic factors (e.g., lesbian, gay, bisexual, transgender sexual orientation or gender identity) according to excerpt from VA/DoD Clinical Practice Guideline for the Assessment and Management of Patients at Risk for Suicide.
+
+Pain: Pain category considers acute and chronic pain, arthralgia, migraine and evidence of pain through mention of pain management/mitigation.
+
+Patient Disability: Patient disability category includes impairments that affect daily life as evidenced by the presence of assistive devices, disability payments, military service-connected ratings.
+
+Substance Abuse: Substance Abuse (marijuana excluded) covers use of both legal (alcohol, tobacco) and illicit substances, addiction, substance abuse treatment/rehab/sobriety groups, relapse.
+
+Suicide Outcome: Suicide outcome category incorporates suicidal ideation, suicide attempt, self-harm/self-directed violence and indicative language (e.g., passive death wish, 1:1 sitter, intentional overdose).
+
+Psychiatric Symptoms/Disorders: Psychiatric Symptoms/Disorders category includes emotional/psychological difficulties and conditions that affect the ability to function well in daily life.

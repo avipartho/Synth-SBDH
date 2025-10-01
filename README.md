@@ -1,6 +1,6 @@
 # Synth-SBDH
 Data and Codes to reproduce experiments in the paper **[Synth-SBDH: A Synthetic Dataset of Social and
-Behavioral Determinants of Health for Clinical Text](https://arxiv.org/abs/2406.06056)**.
+Behavioral Determinants of Health for Clinical Text](https://arxiv.org/abs/2406.06056)** (Accepted at EMNLP 2025 Main Conference).
 <!-- - [Synth-SBDH](#synth-sbdh)
   - [Synth-SBDH Dataset](#synth-sbdh-dataset)
   - [Experiments](#experiments)
@@ -14,7 +14,7 @@ Behavioral Determinants of Health for Clinical Text](https://arxiv.org/abs/2406.
 
 ## Downloadable Resources
 - [Synth-SBDH dataset](https://huggingface.co/datasets/bio-nlp-umass/Synth-SBDH)
-- [fine-tuned model checkpoints](https://huggingface.co/collections/bio-nlp-umass/models-for-synth-sbdh-67928347fb4b03411a30fc9f)
+- [Fine-tuned model checkpoints](https://huggingface.co/collections/bio-nlp-umass/models-for-synth-sbdh-67928347fb4b03411a30fc9f)
 
 ## Experiments
 There are three directories for the three different experiments conducted in the paper - [mlc](mlc), [ner](ner) and [dss](dss). Each folder is self-contained with all the necessary scripts.
@@ -74,13 +74,14 @@ Fine-tuning on Synth-SBDH (SFT<sub>stage1</sub>)
   ```
 ## Citation
 ```
-@misc{mitra2024synthsbdh,
+@misc{mitra2025synthsbdhsyntheticdatasetsocial,
       title={Synth-SBDH: A Synthetic Dataset of Social and Behavioral Determinants of Health for Clinical Text}, 
-      author={Avijit Mitra and Emily Druhl and Raelene Goodwin and Hong Yu},
-      year={2024},
+      author={Avijit Mitra and Zhichao Yang and Emily Druhl and Raelene Goodwin and Hong Yu},
+      year={2025},
       eprint={2406.06056},
       archivePrefix={arXiv},
-      primaryClass={id='cs.CL' full_name='Computation and Language' is_active=True alt_name='cmp-lg' in_archive='cs' is_general=False description='Covers natural language processing. Roughly includes material in ACM Subject Class I.2.7. Note that work on artificial languages (programming languages, logics, formal systems) that does not explicitly address natural-language issues broadly construed (natural-language processing, computational linguistics, speech, text retrieval, etc.) is not appropriate for this area.'}
+      primaryClass={cs.CL},
+      url={https://arxiv.org/abs/2406.06056}, 
 }
 ```
 ## Acknowledgments

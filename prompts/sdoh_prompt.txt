@@ -1,0 +1,28 @@
+The social determinants of health (SDOH) are the non-medical factors that influence health outcomes. They are the conditions in which people are born, grow, work, live, and age, and the wider set of forces and systems shaping the conditions of daily life. SDOHs have a major impact on people’s health, well-being, and quality of life. SDOHs encompass factors such as socioeconomic status, access to healthy food, education, housing, and physical environment, to name a few. Together with behavioral factors such as substance abuse, we get Social and behavioral determinants of health (SBDH). Below are 15 SBDH categories with definitions that we will consider.
+
+1. Food Insecurity: Lack of consistent access to enough food for every person in a household to live an active, healthy life.
+2. Job Insecurity: Job insecurity includes unemployment, underemployment, unstable employment, fear of losing a job or benefits, and vocational rehabilitation/training.
+3. Housing Insecurity: Housing insecurity refers to unstable housing due to a variety of reasons which may include eviction, inability to afford rent, foreclosure, or displacement due to domestic/roommate/landlord issues.
+4. Financial Insecurity: The anxiety produced by the possible exposure to adverse economic events and the anticipation of the difficulty of recovering from them.
+5. Legal Problems: Legal problems entail violations of law, associated punishments, and mention of related officials, places, and processes e.g., attorney, judge, parole officer, court, jail, prison, incarceration, child custody/child support issues.
+6. Social Isolation: A state in which the individual lacks a sense of belonging socially, lacks engagement with others, has a minimal number of social contacts, and they are deficient in fulfilling and quality relationships.
+7. Physical Isolation: Physical isolation results in less involvement with others, often due to disability, illness, housebound or bedbound, that prevents active participation in life outside of the home/immediate physical environment.
+8. Loss of Relationship: A loss of a personal relationship, including divorce, separation, death, estrangement, or breakdown of interpersonal communication.
+9. Barriers to Care: Barriers to care are factors that interfere with healthcare access, and may include transportation issues, cognitive or communication difficulties, lack of trust in the care system, or lack of rapport with provider(s).
+10. Violence: The violence category includes elements of the individual\'s environment, as well as the larger societal environment. The presence of weapons, various types of abuse (physical, emotional/psychological, sexual), exposure to combat, bullying, harassment, threats, and racism are categorized as violence. Violence includes cases of both perpetrators and victims.
+11. Transitions of Care: The transitions of care category identifies healthcare-related points of vulnerability; examples include admission, discharge, medication change, and change of provider.
+12. Pain: The pain category considers acute and chronic pain, arthralgia, migraine, and evidence of pain through mention of pain management/mitigation.
+13. Patient Disability: The patient disability category includes impairments that affect daily life as evidenced by the presence of assistive devices, disability payments, and military service-connected ratings.
+14. Substance Abuse: Substance Abuse (marijuana excluded) covers the use of both legal (alcohol, tobacco) and illicit substances, addiction, substance abuse treatment/rehab/sobriety groups, and relapse.
+15 Psychiatric Symptoms or Disorders: Psychiatric Symptoms or Disorders category includes emotional/psychological difficulties and conditions that affect the ability to function well in daily life.
+
+Below are a few sample examples with SBDH collected from different clinical notes where each example has six sections - 'Text', 'Textspan', 'Reasoning', 'SBDH', 'Presence', and 'Period'. 'Text' contains the example with mention(s) of SBDH(s). 'Textspan' consists of text spans from the 'Text' with indications of SBDH separated by double vertical lines (||). 'Reasoning' has the rationales or reasonings behind the SBDH annotations and follows the same order as in 'Textspan'. Next, we have the SBDH category, its presence - yes or no, and period - current (exists currently) or history (events from the past).
+
+{##examples##}
+
+Your task is to generate examples with mentions of SBDH, provide your reasonings behind them, and finally annotate those mentions in the examples. The requirements are:
+1. An example can have one or multiple mentions of SBDH and must be from the 15 above-mentioned SBDH categories. 
+2. More importantly, each example should emulate a text snippet from a patient's electronic health records with no more than three sentences. 
+3. You must make the examples (specially 'Text' and 'Reasoning' sections) as diverse as possible, both syntactically and semantically. Do not start examples with the same pattern.
+
+Now, generate {##example_no##} examples that meet the requirements mentioned above.

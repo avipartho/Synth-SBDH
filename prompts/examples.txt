@@ -1,0 +1,179 @@
+Text: He explained that he was hungry and did not have a lot of money so took about $60 worth of food.
+Thought processes: He was hungry and did not have enough money to buy food. || He did not have enough money to buy food. || He stole food suggesting he did not have any to eat.
+Annotations: (hungry, Food Insecurity, yes, current) || (not have a lot of money, Financial Insecurity, yes, current) || ($60 worth of food, Food Insecurity, yes, current)
+
+Text: Denies substance abuse and legal issues, and vet states he has plenty of food to eat.
+Thought processes: Veteran is denying subtance abuse. || Vetaran is denying any legal problems. || Vetaran states that he does not have any shortage of food.
+Annotations: (substance abuse, Substance Abuse, no, current) || (legal issues, Legal Problems, no, current) || (plenty of food to eat, Food Insecurity, no, current)
+
+Text: Patient reports she was assaulted by her domestic partner today and needs help finding a place to stay.
+Thought processes: Patient seeking help after being assaulted by domestic partner. Assault is categorized as violence. || Assault has disrupted relationship with domestic partner. || Patient needs a different place to live after being assaulted by domestic partner. 
+Annotations: (assaulted, Violence, yes, current) || (by her domestic partner, Loss of Relationship, yes, current) || (needs help finding a place to stay, Housing Insecurity, yes, current)
+
+Text: He was provided with a food box and two bus tickets.
+Thought processes: Receiving a food box indicates that patient is currently experiencing food insecurity. || Receiving bus tickets suggests that patient is currently having an issue with transportation, which is categorized as barrier to care.
+Annotations: (provided with a food box, Food Insecurity, yes, current) || (two bus tickets, Barriers to Care, yes, current)
+
+Text: She is keeping herself busy attending church and has met some individuals who are supportive.
+Thought processes: She attends church, where she is with others. || She has met people who are supportive, and is currently not experiencing social isolation.
+Annotations: (attending church, Social Isolation, no, current) || (individuals who are supportive, Social Isolation, no, current)
+
+Text: These parents also started giving her crystal meth at age 12 and forced her out of the home at age 14. 
+Thought processes: Patient's parents gave her crystal meth as a child, which disrupted the parent/child relationship. || Crystal meth is an illicit substance; its use is categorized as substance abuse || Forcing patient out of the home as a child resulted in housing insecurity.
+Annotations: (parents, Loss of Relationship, yes, history) || (giving her crystal meth, Substance Abuse, yes, history) || (forced her out of the home, Housing Insecurity, yes, history)
+
+Text: Veteran has little social support and very little contact with family. He is now completely bedridden, weaker, on puree diet, incontinent.
+Thought processes: Veteran doesn't have much social support. || Veteran does not have much contact with family. || Veteran is confined to bed and weak.
+Annotations: (little social support, Social Isolation, yes, current) || (very little contact with family, Social Isolation, yes, current) || (completely bedridden, Physical Isolation, yes, current)
+
+Text: Veteran is anticipated to discharge home once medically stable for discharge transported by his wife.
+Thought processes: Discharge from the hospital is considered as transition of care. || Veteran has a home to go after discharge, so he is less likely to have housing problems. || Having family or friends to transport the patient is absence of barriers to care.
+Annotations: (discharge, Transitions of Care, yes, current) || (home, Housing Insecurity, no, current) || (transported by his wife, Barriers to Care, no, current)
+
+Text: Veteran is currently wheelchair bound, and has not ambulated in over a year due to multiple medical and physical issues. Assisted living facility reports that he has not moved from bed due to severe right hip pain.
+Thought processes: Patient is wheelchair bound and hasn't walked in over a year due to his disability. || Patient has severe hip pain.
+Annotations: (wheelchair bound, Patient Disability, yes, current) || (severe right hip pain, Pain, yes, current)
+
+Text: In terms of paranoia, patient appears to have some residual paranoia both about people outside and inside the hospital but does not actively wish to harm anyone or have homicidal ideation towards any one person.
+Thought processes: Patient has some residual paranoia, a sign of psychiatric problems. ||Patient does not intend to harm anyone - an absence of violent behavior. || Specific mention of the absence of homicidal thoughts.
+Annotations: (paranoia, Psychiatric Symptoms or Disorders, yes, current) || (does not actively wish to harm anyone, Violence, no, current) || (homicidal ideation, Violence, no, current)
+
+Text: Patient says she was incarcerated for parole violation on an armed robbery charge.
+Thought processes: Patient was incarcerated for a violation of the law. || Parole violation is a violation of law and may cause legal issues. || Armed robbery is an act of criminal activity, causing a violation of law.
+Annotations: (incarcerated, Legal Problems, yes, history) || (parole violation, Legal Problems, yes, history) || (armed robbery charge, Legal Problems, yes, history)
+
+Text: Is the patient "marginally housed"? No. Has patient been homeless within the past year for any length of time? No.
+Thought processes: Patient is not currently "marginally housed". || Patient has not been homeless for any length of time during the past year.
+Annotations: (marginally housed, Housing Insecurity, no, current) || (homeless, Housing Insecurity, no, current)
+
+Text: Major Depression, recurrent, severe; originally presented with SI to walk into traffic; no SI currently but still not able to contact for safety outside of hospital and wants to be transferred to Psychiatry unit.
+Thought processes: Major Depression is a psychiatric symptom. || Hospitalization is categorized as transition of care; patient is hospitalized. || Being transferred to another department/unit is categorized as transition of care; patient is requesting to be transferred. || Being transfered to psychiatry unit means inpatient psychiatry admission, which is possibly due to any psychiatric symptoms or disorders.
+Annotations: (Major Depression, Psychiatric Symptoms or Disorders, yes, current) || (outside of hospital, Transitions of Care, yes, current) || (wants to be transferred, Transitions of Care, yes, current) || (to Psychiatry unit, Psychiatric Symptoms or Disorders, yes, current) 
+
+Text: The veteran's daughter reports that the veteran does not use alcohol, tobacco, or illicit substances.
+Thought processes: Veteran does not consume alcohol. || Veteran does not use tobacco. || Veteran does not use illicit substances.
+Annotations: (alcohol, Substance Abuse, no, current) || (tobacco, Substance Abuse, no, current) || (illicit substances, Substance Abuse, no, current)
+
+Text: He says he has lost his job again and feels ashamed to even speak on the phone to his daughters.
+Thought processes: Losing job is a clear sign of job insecurity.
+Annotations: (lost his job, Job Insecurity, yes, current)
+
+Text: Veteran spoke of her very satisfying marriage, and her love of her husband.
+Thought processes: Veteran has a satisfying marriage. || Veteran loves her husband.
+Annotations: (very satisfying marriage, Loss of Relationship, no, current) || (love of her husband, Loss of Relationship, no, current)
+
+Text: Unintentional weight loss - stress and food insecurity related.
+Thought processes: Stress is a psychological symptom. || Weight loss due to food insecurity was mentioned.
+Annotations: (stress, Psychiatric Symptoms or Disorders, yes, current) || (food insecurity, Food Insecurity, yes, current)
+
+Text: Vocational rehab will assist Veteran in job search activity bringing job leads, applications, and computer assistance.
+Thought processes: Wording suggests that veteran needs assistance with finding employment. || Wording indicates veteran needs assistance with finding employment.
+Annotations: (job search, Job Insecurity, yes, current) || (job leads, Job Insecurity, yes, current)
+
+Text: Patient has worked most of his adult life as a cook and is employed at a restaurant as a chef.
+Thought processes: Patient was employed most of his adult life, so little to no chance of past employment insecurity. || Patient is currently employed, suggesting no employment insecurity.
+Annotations: (worked, Job Insecurity, no, history) || (employed, Job Insecurity, no, current)
+
+Text: VASH social worker meets with veteran to ensure veteran continues developing and maintaining treatment plan goals of maintaining housing.
+Thought processes: VASH is VA subsidized housing - any patient receiving VASH has housing insecurity. || "maintain housing" is a phrasing indicative of housing insecurity because it shows it is a current concern.
+Annotations: (VASH, Housing Insecurity, yes, current) || (maintaining housing, Housing Insecurity, yes, current)
+
+Text: Living situation - rental - lives with father
+Thought processes: Patient is at a rental property with no indication of any housing issues.|| Lives with father, so no housing insecurity.
+Annotations: (rental, Housing Insecurity, no, current) || (lives with father, Housing Insecurity, no, current)
+
+Text: Veteran endorsed recent financial stressor which includes an old debt that was never paid.
+Thought processes: Patient mentions financial stressors, suggesting financial insecurity. || Mentions of debt is can be highly correlated with financial insecurity.
+Annotations: (financial stressor, Financial Insecurity, yes, current) || (debt that was never paid, Financial Insecurity, yes, current)
+
+Text: Bouts of depression off and on, currently not wanting to be around others, isolating and reports feeling depressed every day of the last two weeks at least.
+Thought processes: Depression is a psychiatric symptom. || Self-isolation is an indicator of social isolation. || Not wanting to be around others is social isolation. || The patient reports feeling depressed and depression is a psychiatric symptom.
+Annotations: (depression, Psychiatric Symptoms or Disorders, yes, current) || (not wanting to be around others, Social Isolation, yes, current) || (isolating, Social Isolation, yes, current) || (depressed, Psychiatric Symptoms or Disorders, yes, current)
+
+Text: Reports stressors including housing insecurity, chronic feelings of hopelessness, and poor social support.
+Thought processes: Housing insecurity is mentioned as a stressor. || Feeling hopeless is a psychiatric symptom. || Mentions of poor or nonexistent social support are social isolation.
+Annotations: (housing insecurity, Housing Insecurity, yes, current) || (hopelessness, Psychiatric Symptoms or Disorders, yes, current) || (social support, Social Isolation, yes, current))
+
+Text: Veteran relates that she feels like a lot of her stress is related to marital dynamic and asks for marital counseling.
+Thought processes: Stress due to marital dynamic can be indicative of a breakdown in communication or support. || Any mention of relationship counseling is a loss of relationship as it suggests a breakdown in communication or support.
+Annotations: (marital dynamic, Loss of Relationship, yes, current) || (marital counseling, Loss of Relationship, yes, current)
+
+Text: Veteran is reporting unwanted thoughts of harming two brothers as evidenced by him stating "they jumped me".
+Thought processes: Thoughts of harming others is considered violence. || Being jumped is a physical component of violence.
+Annotations: (thoughts of harming, Violence, yes, current) || (jumped me, Violence, yes, current)
+
+Text: Patient had four inpatient psychiatric hospitalizations from several VA hospitals, and his most recent admission was for SI.
+Thought processes: Past psychiatric hospitalization must be due to psychiatric concerns. || Any mention of previous hospitalization is considered a transition of care. || Any mention of admission is considered a transition of care. This happened in the past.
+Annotations: (psychiatric hospitalization, Psychiatric Symptoms or Disorders, yes, history) || (hospitalization, Transitions of Care, yes, history) || (admission, Transitions of Care, yes, history)
+
+Text: Admitting diagnoses/problems: abdominal pain. 
+Thought processes: Patient has abdominal pain.
+Annotations: (pain, Pain, yes, current)
+
+Text: Veteran no longer requires a walker for ambulating.
+Thought processes: Not requiring assistive devices shows that patient no longer has a disability.
+Annotations: (walker, Patient Disability, no, current) 
+
+Text: Consult for polysubstance abuse, in particular OUD with fentanyl use.
+Thought processes: Polysubstance abuse outside their intended use is considered substance abuse. || Opioid use disorder (OUD) is considered substance abuse. || Using illicit or prescription drugs (fentanyl) outside their intended use is considered substance abuse.
+Annotations: (polysubstance abuse, Substance Abuse, yes, current) || (OUD, Substance Abuse, yes, current) || (fentanyl use, Substance Abuse, yes, current) 
+
+Text: Unemployed but reported is seeking work.
+Thought processes: Patient is currently unemployed || Patient is looking for a job.
+Annotations: (unemployed, Job Insecurity, yes, current) || (seeking work, Job Insecurity, yes, current)
+
+Text: Veteran was evicted from his most recent apartment for non-payment of rent. He will be homeless at discharge.
+Thought processes: Eviction is categorized as housing insecurity. || Loss of recent apartment means that patient currently has no home. || Non-payment of rent is categorized as housing insecurity. || Patient will be homeless when discharged, meaning housing insecurity. || Discharge is categorized as transition of care.
+Annotations: (was evicted, Housing Insecurity, yes, current) || (most recent apartment, Housing Insecurity, yes, current) || (non-payment of rent, Housing Insecurity, yes, current) || (will be homeless, Housing Insecurity, yes, current) || (at discharge, Transitions of Care, yes, current)
+
+Text: He is very worried about finances, including his children's back to school expenses and fees.
+Thought processes: He is currently worried about finances which. || His current financial concerns include his children's school expenses. || He is currently worried about his children's school fees due to finanacial issues.
+Annotations: (worried about finances, Financial Insecurity, yes, current) || (school expenses, Financial Insecurity, yes, current) || (fees, Financial Insecurity, yes, current)
+
+Text: This writer received a call from the veteran inquiring about the VJO program as he has a misdemeanor case for theft.
+Thought processes: VJO is acronym for Veterans Justice Outreach which indicates veteran has a legal issue. || Misdemeanor is a less serious criminal offense || Theft is a criminal offense.
+Annotations: (VJO, Legal Problems, yes, current) || misdemeanor case, Legal Problems, yes, current) || (theft, Legal Problems, yes, current)
+
+Text: Per son, veteran's prognosis remains poor. He is completely bedbound and requires help with all ADLs.
+Thought processes: Veteran is confined to bed, and unable to complete activities of daily living.
+Annotations: (completely bedbound, Physical Isolation, yes, current)
+
+Text: Veteran reports that she actively communicates with mental health provider and has been complying with treatment recommendations and medications.
+Thought processes: Veteran communicates with provider and complies with treatment. There is no barrier to care.
+Annotations: (actively communicates, Barriers to Care, no, current)
+
+Text: Veteran has recently begun to describe his exposure to military war experiences, i.e. burning bodies, fellow soldiers killed. 
+Thought processes: Veteran has recently been describing violence he was exposed to during military combat. || Veteran saw burning bodies when serving in the military. || Veteran saw fellow soldiers killed while serving in the military.
+Annotations: (military war experiences, Violence, yes, history) || (burning bodies, Violence, yes, history) || (fellow soldiers killed, Violence, yes, history)
+
+Text: Patient's Seroquel dose remains the same.
+Thought processes: Seroquel dosage did not change, so no transition of care.
+Annotations: (does remains the same, Transitions of Care, no, current)
+
+Text: Patient's pain has been addressed by patient's provider and pain interventions have already been ordered.
+Thought processes: Patient is experiencing pain. || Patient's pain is being addressed with intervention.
+Annotations: (pain, Pain, yes, current) || (pain, Pain, yes, current)
+
+Text: Veteran needs assistance with setting up since he is blind.
+Thought processes: Patient is blind. Blindness is a disability.
+Annotations: (he is blind, Patient Disability, yes, current)
+
+Text: Veteran struggles with sleep apnea and PTSD which causes sleep issues.
+Thought processes: Veteran suffers from PTSD, which is categorized as a psychiatric symptom. || Veteran has sleep issues; sleep issues are categorized as psychiatric symptom.
+Annotations: (PTSD, Psychiatric Symptoms or Disorders, yes, current) || (causes sleep issues, Psychiatric Symptoms or Disorders, yes, current)
+
+Text: Patient has tobacco use disorder (in past medical history list)
+Thought processes: Tobacco use is categorized as substance abuse; patient has history of tobacco use.
+Annotations: (tobacco use disorder, Substance Abuse, yes, history)
+
+Text: The client self-reports that his rent and utilities are paid and up to date.
+Thought processes: Mentions of rent being paid is considered an absence of financial insecurity. || Mentions of any bills being paid is considered an absence of financial insecurity.
+Annotations: (rent, Financial Insecurity, no, current) || (utilities are paid, Financial Insecurity, no, current)
+
+Text: Reports losing the trailer after losing job and getting evicted.
+Thought processes: Losing a property (trailer) can be attributed to financial insecurity. || Losing a job is a sign of job insecurity. || Eviction is categorized as housing insecurity.
+Annotations: (losing the trailer, Financial Insecurity, yes, current) || (losing job, Job Insecurity, yes, current) || (evicted, Housing Insecurity, yes, current)
+
+Text: Social worker will continue to follow veteran for any further social work or discharge planning needs during this admission.
+Thought processes: Any mention of discharge is considered a transition of care. || Any mention of admission is considered a transition of care.
+Annotations: (discharge, Transitions of Care, yes, current) || (admission, Transitions of Care, yes, current)
